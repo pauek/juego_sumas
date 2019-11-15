@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/model/exercise.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
+import 'package:juego_sumas/widgets/selectable_digit.dart';
 
 class Operation extends StatefulWidget {
   @override
@@ -44,63 +44,15 @@ class _OperationState extends State<Operation> {
           width: 180,
           height: 3,
           color: Colors.black,
+          margin: EdgeInsets.symmetric(vertical: 5),
         ),
         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          for (int i = digits.length - 1; i >= 0; i--) ...[
-            SizedBox(width: 5),
-            Container(
-              color: (exerciseSequence.selectedDigit == i ? Colors.blue : Colors.white),
-              child: Text(
-                (digits[i] == -1 ? ' ' : '${digits[i]}'),
-                style: TextStyle(fontSize: 76),
-              ),
-            ),
-          ]
+          for (int i = digits.length - 1; i >= 0; i--)
+            SelectableDigit(i),
         ]),
       ],
     );
   }
 }
 
-/*
 
-Container(
-              height: 85,
-              width: 50,
-              margin: EdgeInsets.only(top: 5),
-              child: TextField(
-                focusNode: AlwaysDisabledFocusNode(),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.00),
-                  ),
-                ),
-                style: ,
-                onChanged: (value) {
-                  // updateResult.insertResult(exerciceId, int.parse(value), 1);
-                },
-              ),
-            ),
-            Container(
-              height: 85,
-              width: 50,
-              margin: EdgeInsets.only(left: 5, top: 5),
-              child: TextField(
-                focusNode: AlwaysDisabledFocusNode(),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.00),
-                  ),
-                ),
-                style: TextStyle(fontSize: 35),
-                onChanged: (value) {
-                  // updateResult.insertResult(exerciceId, int.parse(value), 0);
-                },
-              ),
-            ),
-            */
-
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
-}
