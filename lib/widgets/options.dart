@@ -2,18 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 
-class Options extends StatelessWidget {
+class DigitKeyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final updateResult = Provider.of<ExerciseSequence>(context);
-    int index = 1;
-
-    void handleResult(int value) {
-      if(index == 0) index++;
-      else  if(index == 1) index--;
-      updateResult.addDigit(value);
-    }
+    final exerciseSequence = Provider.of<ExerciseSequence>(context);
 
     return GridView.count(
       crossAxisCount: 5,
@@ -28,7 +21,7 @@ class Options extends StatelessWidget {
             color: Colors.blue[200],
             textColor: Colors.white,
             onPressed: () {
-              handleResult(index);
+              exerciseSequence.setDigit(index);
               // updateResult.insertResult(exId, index, 0);
             },
             child: Text(

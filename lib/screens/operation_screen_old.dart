@@ -33,7 +33,7 @@ class _OperationScreenState extends State<OperationScreen> {
             height: mediaQuery.size.height * 0.05,
           ),
           Container(
-            child: Options(),
+            child: DigitKeyboard(),
             height: mediaQuery.size.height * 0.25,
             alignment: Alignment.bottomCenter,
             padding: EdgeInsets.symmetric(horizontal: 15),

@@ -12,8 +12,8 @@ class _OperationState extends State<Operation> {
   @override
   Widget build(BuildContext context) {
     // TODO(mese): change to GetNumbers() ???
-    final exercise =
-        Provider.of<ExerciseSequence>(context, listen: false).current;
+    final exerciseSequence = Provider.of<ExerciseSequence>(context);
+    final exercise = exerciseSequence.current;
 
     Widget getText(numbers, isBottom) {
       String newNumber = '';
@@ -29,6 +29,9 @@ class _OperationState extends State<Operation> {
       );
     }
 
+    final digits =
+        exerciseSequence.number.take(exercise.result.length).toList();
+
     return Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.end,
@@ -42,17 +45,18 @@ class _OperationState extends State<Operation> {
           height: 3,
           color: Colors.black,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: exercise.result.reversed
-              .map(
-                (digit) => Text(
-                  '$digit',
-                  style: TextStyle(fontSize: 76),
-                ),
-              )
-              .toList(),
-        ),
+        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+          for (int i = digits.length - 1; i >= 0; i--) ...[
+            SizedBox(width: 5),
+            Container(
+              color: (exerciseSequence.selectedDigit == i ? Colors.blue : Colors.white),
+              child: Text(
+                (digits[i] == -1 ? ' ' : '${digits[i]}'),
+                style: TextStyle(fontSize: 76),
+              ),
+            ),
+          ]
+        ]),
       ],
     );
   }

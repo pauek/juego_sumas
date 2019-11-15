@@ -14,7 +14,7 @@ class ExerciseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final level = ModalRoute.of(context).settings.arguments;
 
-    return Provider<ExerciseSequence>(
+    return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
           .generateExerciseSequence(level),
       child: Scaffold(
@@ -33,7 +33,7 @@ class ExerciseScreen extends StatelessWidget {
               flex: 25,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Options(),
+                child: DigitKeyboard(),
               ),
               
             ),

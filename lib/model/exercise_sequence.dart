@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:juego_sumas/model/exercise.dart';
 
 /*
@@ -14,10 +15,29 @@ generi exercicis i els vas afegint a una seqüència)
 
 */
 
-class ExerciseSequence {
+class ExerciseSequence with ChangeNotifier {
   List<Exercise> exercises = [];
   int _current = 0;
-  List<int> number = [];
+
+  List<int> number = List<int>.generate(10, (i) => -1);
+
+  int _selectedDigit = 0;
+
+  int get selectedDigit => _selectedDigit;
+  
+  set selectedDigit(int newValue) {
+    _selectedDigit = newValue;
+    notifyListeners();
+  }
+
+  void setDigit(int value) {
+    number[_selectedDigit] = value;
+    _selectedDigit++;
+    if (_selectedDigit >= current.result.length) {
+      _selectedDigit = 0;
+    }
+    notifyListeners();
+  }
 
   add(Exercise e) => exercises.add(e);
 
@@ -26,8 +46,6 @@ class ExerciseSequence {
   double get progress => _current / exercises.length;
 
   bool get finished => _current >= exercises.length;
-
-  void addDigit(int digit) => number.add(digit);
 
   bool checkResult() {
     if (current.result.length != number.length) {
@@ -42,6 +60,10 @@ class ExerciseSequence {
   }
 
   void next() {
-    if (_current < exercises.length) _current++;
+    if (_current < exercises.length) {
+      _current++;
+      _selectedDigit = 0;
+      number = List<int>.generate(10, (i) => -1);
+    }
   }
 }
