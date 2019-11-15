@@ -24,7 +24,7 @@ class ExerciseSequence with ChangeNotifier {
   int _selectedDigit = 0;
 
   int get selectedDigit => _selectedDigit;
-  
+
   set selectedDigit(int newValue) {
     _selectedDigit = newValue;
     notifyListeners();
@@ -41,16 +41,14 @@ class ExerciseSequence with ChangeNotifier {
 
   add(Exercise e) => exercises.add(e);
 
-  Exercise get current => exercises[_current];
-  
+  Exercise get current =>
+      (_current < exercises.length ? exercises[_current] : null);
+
   double get progress => _current / exercises.length;
 
   bool get finished => _current >= exercises.length;
 
   bool checkResult() {
-    if (current.result.length != number.length) {
-      return false;
-    }
     for (int i = 0; i < current.result.length; i++) {
       if (current.result[i] != number[i]) {
         return false;
@@ -64,6 +62,7 @@ class ExerciseSequence with ChangeNotifier {
       _current++;
       _selectedDigit = 0;
       number = List<int>.generate(10, (i) => -1);
+      notifyListeners();
     }
   }
 }

@@ -15,8 +15,9 @@ class ExerciseScreen extends StatelessWidget {
     final level = ModalRoute.of(context).settings.arguments;
 
     return ChangeNotifierProvider<ExerciseSequence>(
-      builder: (context) => Provider.of<LevelService>(context, listen: false)
-          .generateExerciseSequence(level),
+      builder: (context) =>
+          Provider.of<LevelService>(context, listen: false)
+              .generateExerciseSequence(level, count: 2),
       child: Scaffold(
         body: Column(
           children: <Widget>[
@@ -35,7 +36,6 @@ class ExerciseScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: DigitKeyboard(),
               ),
-              
             ),
             Expanded(
               flex: 10,
@@ -48,16 +48,12 @@ class ExerciseScreen extends StatelessWidget {
                       shape: StadiumBorder(),
                       child: Text('Submit'),
                       onPressed: () {
-                        if (exerciseSequence.finished) {
-                          Navigator.of(context)
-                              .pushReplacementNamed('./');
-                          return;
-                        }
-                        final Exercise ex = exerciseSequence.current;
-                        if (ex.top[0] == ex.result[0] &&
-                            ex.top[1] + ex.bottom[0] == ex.result[1]) {
+                        if (exerciseSequence.checkResult()) {
                           exerciseSequence.next();
-                          // TODO: Show 'WELL DONE'
+                          if (exerciseSequence.finished) {
+                            // TODO: Show 'WELL DONE'
+                            Navigator.of(context).pop();
+                          }
                         }
                       },
                     );

@@ -18,7 +18,7 @@ class ProgressBar extends StatelessWidget {
               icon: Icon(Icons.close),
               color: Colors.blue[200],
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed('./');
+                Navigator.of(context).pop();
               },
             ),
           ),

@@ -26,7 +26,7 @@ class MainScreen extends StatelessWidget {
                 child: FlatButton(
                   child: Text('$level'),
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(
+                    Navigator.of(context).pushNamed(
                       './operation',
                       arguments: level,
                     );

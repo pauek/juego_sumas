@@ -15,6 +15,10 @@ class _OperationState extends State<Operation> {
     final exerciseSequence = Provider.of<ExerciseSequence>(context);
     final exercise = exerciseSequence.current;
 
+    if (exercise == null) {
+      return Container();
+    }
+
     Widget getText(numbers, isBottom) {
       String newNumber = '';
       if (isBottom) {
@@ -31,6 +35,8 @@ class _OperationState extends State<Operation> {
 
     final digits =
         exerciseSequence.number.take(exercise.result.length).toList();
+
+
 
     return Wrap(
       direction: Axis.vertical,
