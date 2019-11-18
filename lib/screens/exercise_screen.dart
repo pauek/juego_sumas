@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/model/exercise.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/widgets/options.dart';
