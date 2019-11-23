@@ -11,13 +11,15 @@ class SelectableDigit extends StatelessWidget {
   Widget build(BuildContext context) {
     final seq = Provider.of<ExerciseSequence>(context);
     final color =
-        (seq.selectedDigit == index ? Colors.blue[200] : Colors.white);
+        (seq.selectedDigit == index ? Colors.blue[100] : Colors.white);
     return GestureDetector(
       onTap: () {
         seq.selectedDigit = index;
       },
       child: Container(
         width: 45,
+        margin: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.only( right: 5),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.all(Radius.circular(8)),

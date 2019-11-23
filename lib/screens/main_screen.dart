@@ -8,33 +8,40 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final levels = Provider.of<LevelService>(context).allLevels;
+    final stages = Provider.of<LevelService>(context).allLevels;
     return Scaffold(
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(5),
-          alignment: Alignment.center,
-          width: mediaQuery.size.width * 0.45,
-          child: ListView.builder(
-            itemCount: levels.length,
-            itemBuilder: (ctx, level) => Container(
-              height: 150,
-              width: 95,
-              margin: EdgeInsets.all(15),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(150),
-                child: FlatButton(
-                  child: Text('$level'),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                      './operation',
-                      arguments: level,
-                    );
-                  },
-                  color: Colors.blue[200],
+      body: ListView.builder(
+        itemCount: stages.length,
+        itemBuilder: (ctx, stage) => Container(
+          height: 150,
+          width: 150,
+          //  constraints: BoxConstraints.expand(width: 50.0, height: 100.0),
+          child: Stack(
+            alignment: AlignmentDirectional.center,
+            children: <Widget>[
+              ListView.builder(
+                itemCount: stages[stage].length,
+                itemBuilder: (ctx, level) => Container(
+                  height: 50,
+                  width: 50,
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  // color: Colors.blue[100 * stage],
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: FlatButton(
+                      child: Text('stage: $stage level: $level'),
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          './operation',
+                          arguments: stage,
+                        );
+                      },
+                      color: Colors.blue[100 * stage],
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),

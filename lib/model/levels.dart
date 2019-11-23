@@ -15,13 +15,20 @@ class Level {
   int sizeTop, sizeBottom, sizeResult;
   List<bool> carry = [];
   List<int> dependencies;
+  int stage;
+  List<double> position;
 
-  Level(this.sizeTop, this.sizeBottom, String scarry,
-      this.dependencies) {
+  Level(
+    this.sizeTop,
+    this.sizeBottom,
+    String scarry,
+    this.dependencies,
+    this.stage,
+    this.position,
+  ) {
     final sizeMax = max(sizeTop, sizeBottom);
     assert(scarry.length == sizeMax);
-    carry =
-        List<bool>.generate(scarry.length, (i) => scarry[i] == 'c');
+    carry = List<bool>.generate(scarry.length, (i) => scarry[i] == 'c');
     sizeResult = sizeMax + (carry.last ? 1 : 0);
   }
 }
@@ -30,10 +37,8 @@ class Number {
   List<int> digits;
   Number(int size) : digits = List<int>.filled(size, -1);
 
-  int get value =>
-      digits.reversed.reduce((sum, digit) => 10 * sum + digit);
-  String toString() =>
-      digits.reversed.map((d) => '$d').toList().join('');
+  int get value => digits.reversed.reduce((sum, digit) => 10 * sum + digit);
+  String toString() => digits.reversed.map((d) => '$d').toList().join('');
   bool selfCheck() => digits.every((n) => n >= 0 && n <= 9);
 
   int get last => digits.last;
@@ -77,8 +82,7 @@ class LevelInstance {
       }
 
       final bool carryLast = (i > 0 && level.carry[i - 1]);
-      final bool carryNow =
-          (i < level.carry.length && level.carry[i]);
+      final bool carryNow = (i < level.carry.length && level.carry[i]);
       final Map<Pos, bool> lastDigit = {
         Pos.top: i == level.sizeTop - 1,
         Pos.bottom: i == level.sizeBottom - 1,
@@ -95,15 +99,12 @@ class LevelInstance {
           numbers[which].digits[i] = 9;
           return;
         }
-        final lower =
-            (lastDigit[which] ? 1 : 0) + (carryLast ? 1 : 0);
+        final lower = (lastDigit[which] ? 1 : 0) + (carryLast ? 1 : 0);
         final upper = 9;
         result.digits[i] = randIntInclusive(lower, upper);
-        numbers[which].digits[i] =
-            result.digits[i] - (carryLast ? 1 : 0);
+        numbers[which].digits[i] = result.digits[i] - (carryLast ? 1 : 0);
 
-        assert(i >= top.length ||
-            (top.digits[i] >= 0 && top.digits[i] <= 9));
+        assert(i >= top.length || (top.digits[i] >= 0 && top.digits[i] <= 9));
         assert(i >= bottom.length ||
             (bottom.digits[i] >= 0 && bottom.digits[i] <= 9));
         assert(!lastDigit[Pos.top] || top.digits[i] > 0);
@@ -200,67 +201,83 @@ class LevelInstance {
 }
 
 class LevelService {
-  List<Level> get allLevels => [
+  List<List<Level>> get allLevels => [
         //Bloque 1: 1 suma, sin acarreo (Level 1 - 3)
-        Level(1, 1, "_", [0]),
-        Level(1, 2, "__", [1]),
-        Level(2, 1, "__", [1]),
-        //Bloque 2: 2 sumas, sin acarreo (Level 4 - 6)
-        Level(2, 2, "__", [1]),
-        Level(2, 3, "___", [2, 3, 4]),
-        Level(3, 2, "___", [2, 3, 4]),
+        [
+          Level(1, 1, "_", [0], 0, [50, 50])
+        ],
+        [
+          Level(1, 2, "__", [1], 1, [50, 50]),
+          Level(2, 1, "__", [1], 1, [50, 50]),
+          //Bloque 2: 2 sumas, sin acarreo (Level 4 - 6)
+          Level(2, 2, "__", [1], 1, [50, 50]),
+          Level(2, 3, "___", [2, 3, 4], 1, [50, 50]),
+          Level(3, 2, "___", [2, 3, 4], 1, [50, 50])
+        ],
         //Bloque 3: 1 suma, 1 acarreo (Level 7 - 9)
-        Level(1, 1, "c", [1]),
-        Level(2, 1, "c_", [2, 3, 7]),
-        Level(1, 2, "c_", [2, 3, 7]),
-        //Bloque 4: 2 sumas, 1 acarreo (Level 10 - 17)
-        Level(2, 2, "c_", [4, 8, 9]),
-        Level(2, 3, "c__", [5, 6, 10]),
-        Level(3, 2, "c__", [5, 6, 10]),
-        Level(2, 2, "_c", [10]),
-        Level(2, 3, "_c_", [11, 12, 13]),
-        Level(3, 2, "_c_", [11, 12, 13]),
-        Level(4, 2, "_c__", [14, 15]),
-        Level(2, 4, "_c__", [14, 15]),
+        [
+          Level(1, 1, "c", [1], 2, [50, 50]),
+          Level(2, 1, "c_", [2, 3, 7], 2, [50, 50]),
+          Level(1, 2, "c_", [2, 3, 7], 2, [50, 50]),
+          //Bloque 4: 2 sumas, 1 acarreo (Level 10 - 17)
+          Level(2, 2, "c_", [4, 8, 9], 2, [50, 50]),
+          Level(2, 3, "c__", [5, 6, 10], 2, [50, 50]),
+          Level(3, 2, "c__", [5, 6, 10], 2, [50, 50]),
+          Level(2, 2, "_c", [10], 2, [50, 50]),
+          Level(2, 3, "_c_", [11, 12, 13], 2, [50, 50]),
+          Level(3, 2, "_c_", [11, 12, 13], 2, [50, 50]),
+          Level(4, 2, "_c__", [14, 15], 2, [50, 50]),
+          Level(2, 4, "_c__", [14, 15], 2, [50, 50])
+        ],
         //Bloque 5: 3 sumas, sin acarreo (Level 18 - 20)
-        Level(3, 3, "___", [4, 5, 6]),
-        Level(4, 3, "____", [4, 5, 6]),
-        Level(3, 4, "____", [4, 5, 6]),
+        [
+          Level(3, 3, "___", [4, 5, 6], 3, [50, 50]),
+          Level(4, 3, "____", [4, 5, 6], 3, [50, 50]),
+          Level(3, 4, "____", [4, 5, 6], 3, [50, 50])
+        ],
         //Bloque 6: 3 sumas, 1 acarreo (Level 21 - 29)
-        Level(3, 3, "c__", [10, 18]),
-        Level(4, 3, "c___", [19, 20, 21]),
-        Level(3, 4, "c___", [19, 20, 21]),
-        Level(3, 3, "_c_", [10, 18]),
-        Level(4, 3, "_c__", [22, 23]),
-        Level(3, 4, "_c__", [22, 23]),
-        Level(3, 3, "__c", [13, 24]),
-        Level(4, 3, "__c_", [25, 26]),
-        Level(3, 4, "__c_", [25, 26]),
+        [
+          Level(3, 3, "c__", [10, 18], 4, [50, 50]),
+          Level(4, 3, "c___", [19, 20, 21], 4, [50, 50]),
+          Level(3, 4, "c___", [19, 20, 21], 4, [50, 50]),
+          Level(3, 3, "_c_", [10, 18], 4, [50, 50]),
+          Level(4, 3, "_c__", [22, 23], 4, [50, 50]),
+          Level(3, 4, "_c__", [22, 23], 4, [50, 50]),
+          Level(3, 3, "__c", [13, 24], 4, [50, 50]),
+          Level(4, 3, "__c_", [25, 26], 4, [50, 50]),
+          Level(3, 4, "__c_", [25, 26], 4, [50, 50])
+        ],
         //Bloque 7: 3 sumas, 2 acarreos (Level 30 - 41)
-        Level(2, 2, "cc", [10, 13]),
-        Level(2, 3, "cc_", [11, 12, 14, 15]),
-        Level(3, 2, "cc_", [11, 12, 14, 15]),
-        Level(3, 3, "c_c", [18, 21, 27]),
-        Level(4, 3, "c_c_", [22, 23, 28, 29]),
-        Level(3, 4, "c_c_", [22, 23, 28, 29]),
-        Level(3, 3, "_cc", [18, 24, 27]),
-        Level(4, 3, "_cc_", [31, 32]),
-        Level(3, 4, "_cc_", [31, 32]),
-        Level(4, 4, "cc__", [31, 32]),
-        Level(4, 4, "c_c_", [31, 32]),
-        Level(4, 4, "_cc_", [31, 32]),
+        [
+          Level(2, 2, "cc", [10, 13], 5, [50, 50]),
+          Level(2, 3, "cc_", [11, 12, 14, 15], 5, [50, 50]),
+          Level(3, 2, "cc_", [11, 12, 14, 15], 5, [50, 50]),
+          Level(3, 3, "c_c", [18, 21, 27], 5, [50, 50]),
+          Level(4, 3, "c_c_", [22, 23, 28, 29], 5, [50, 50]),
+          Level(3, 4, "c_c_", [22, 23, 28, 29], 5, [50, 50]),
+          Level(3, 3, "_cc", [18, 24, 27], 5, [50, 50]),
+          Level(4, 3, "_cc_", [31, 32], 5, [50, 50]),
+          Level(3, 4, "_cc_", [31, 32], 5, [50, 50]),
+          Level(4, 4, "cc__", [31, 32], 5, [50, 50]),
+          Level(4, 4, "c_c_", [31, 32], 5, [50, 50]),
+          Level(4, 4, "_cc_", [31, 32], 5, [50, 50])
+        ],
         //Bloque 8: 3 sumas, 2 acarreos (Level 42 - 47)
-        Level(3, 3, "ccc", [33, 36]),
-        Level(4, 3, "ccc_", [37, 38]),
-        Level(3, 4, "ccc_", [37, 38]),
-        Level(4, 4, "_ccc", [42]),
-        Level(4, 4, "c_cc", [39, 40, 41, 45]),
-        Level(4, 4, "cc_c",
-            [39, 40, 41, 45]), //carry del primer dígito al último
+        [
+          Level(3, 3, "ccc", [33, 36], 6, [50, 50]),
+          Level(4, 3, "ccc_", [37, 38], 6, [50, 50]),
+          Level(3, 4, "ccc_", [37, 38], 6, [50, 50]),
+          Level(4, 4, "_ccc", [42], 6, [50, 50]),
+          Level(4, 4, "c_cc", [39, 40, 41, 45], 6, [50, 50])
+        ],
+        //carry del primer dígito al último
+        [
+          Level(4, 4, "cc_c", [39, 40, 41, 45], 7, [50, 50])
+        ],
       ];
 
-  Exercise generateExercise(int level) {
-    LevelInstance instance = LevelInstance(allLevels[level]);
+  Exercise generateExercise(int level, int stage) {
+    LevelInstance instance = LevelInstance(allLevels[stage][level]);
     instance._generateColumns();
     return Exercise(
       '${DateTime.now().toString()}',
@@ -270,10 +287,10 @@ class LevelService {
     );
   }
 
-  ExerciseSequence generateExerciseSequence(int level, { int count = 5 }) {
+  ExerciseSequence generateExerciseSequence(int level, int stage, {int count = 5}) {
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
-      sequence.add(generateExercise(level));
+      sequence.add(generateExercise(level, stage));
     }
     return sequence;
   }

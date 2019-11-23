@@ -12,11 +12,12 @@ class ExerciseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final level = ModalRoute.of(context).settings.arguments;
+    final stage = ModalRoute.of(context).settings.arguments;
 
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) =>
           Provider.of<LevelService>(context, listen: false)
-              .generateExerciseSequence(level, count: 2),
+              .generateExerciseSequence(level, stage, count: 2),
       child: Scaffold(
         body: Column(
           children: <Widget>[
