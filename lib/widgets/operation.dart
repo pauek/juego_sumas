@@ -11,7 +11,6 @@ class Operation extends StatefulWidget {
 class _OperationState extends State<Operation> {
   @override
   Widget build(BuildContext context) {
-    // TODO(mese): change to GetNumbers() ???
     final exerciseSequence = Provider.of<ExerciseSequence>(context);
     final exercise = exerciseSequence.current;
 
@@ -37,12 +36,10 @@ class _OperationState extends State<Operation> {
         exerciseSequence.number.take(exercise.result.length).toList();
 
 
-
     return Wrap(
       direction: Axis.vertical,
       alignment: WrapAlignment.end,
       crossAxisAlignment: WrapCrossAlignment.end,
-      // crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         getText(exercise.top.reversed, false),
         getText(exercise.bottom.reversed, true),
@@ -52,10 +49,13 @@ class _OperationState extends State<Operation> {
           color: Colors.black,
           margin: EdgeInsets.symmetric(vertical: 5),
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-          for (int i = digits.length - 1; i >= 0; i--)
-            SelectableDigit(i),
-        ]),
+        Container(
+          height: 130,
+          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+            for (int i = digits.length - 1; i >= 0; i--)
+              SelectableDigit(i),
+          ]),
+        ),
       ],
     );
   }

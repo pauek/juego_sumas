@@ -38,7 +38,7 @@ class MainScreen extends StatelessWidget {
     // }
 
     return Scaffold(
-      // backgroundColor: Colors.amber[100],
+      backgroundColor: Colors.amber[100],
       body: Container(
         // decoration: BoxDecoration(
         //   image: DecorationImage(
@@ -47,25 +47,30 @@ class MainScreen extends StatelessWidget {
         //     colorFilter: ColorFilter.mode(Colors.black87, BlendMode.screen),
         //   ),
         // ),
+        // alignment: Alignment.center,
+        width: double.infinity,
         child: ListView.builder(
             itemCount: stages.length,
             itemBuilder: (ctx, stage) {
               return Container(
-                alignment: Alignment.center,
-                height: stages[stage].length * 110.0,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                margin: EdgeInsets.all(10.0),
-                child: Center(
-                  child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: stages[stage].length,
-                      itemBuilder: (ctx, sameDeps) {
-                        // return Text(stages[stage][sameDeps].length.toString());
-                        return Center(
+                height: stages[stage].length * mediaQuery.size.height *0.15,
+                width: double.infinity,
+                // padding: EdgeInsets.symmetric(horizontal: 3.0),
+                // margin: EdgeInsets.all(10.0),
+                // child: Center(
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: stages[stage].length,
+                    itemBuilder: (ctx, sameDeps) {
+                      // return Text(stages[stage][sameDeps].length.toString());
+                      return Center(
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        // children: <Widget>[
                           child: Container(
                             // alignment: Alignment.center,
                             height: 110,
-                            width: stages[stage][sameDeps].length * 135.0,
+                            width: stages[stage][sameDeps].length * 150.0,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               physics: NeverScrollableScrollPhysics(),
@@ -81,8 +86,8 @@ class MainScreen extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Container(
-                                      height: 100,
-                                      width: 100,
+                                      height: mediaQuery.size.height * 0.3,
+                                      width: mediaQuery.size.width * 0.3,
                                       decoration: BoxDecoration(
                                         color: Colors.blue[100 * stage],
                                         shape: BoxShape.circle,
@@ -92,10 +97,10 @@ class MainScreen extends StatelessWidget {
                                         ),
                                       ),
                                       padding: EdgeInsets.all(15),
-                                      margin: EdgeInsets.symmetric(
-                                        horizontal: 15,
-                                        vertical: 5,
-                                      ),
+                                      // margin: EdgeInsets.symmetric(
+                                      //   horizontal: 5,
+                                      //   vertical: 5,
+                                      // ),
                                       child: SvgPicture.asset(
                                         'assets/images/ic-medium.svg',
                                         fit: BoxFit.contain,
@@ -109,9 +114,10 @@ class MainScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                        );
-                      }),
-                ),
+                        // ],
+                      );
+                    }),
+                // ),
               );
 
               // return Row(

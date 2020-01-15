@@ -30,11 +30,11 @@ class ProgressBar extends StatelessWidget {
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue[200],
-                        width: 1.0,
-                      ),
-                      color: Color.fromRGBO(220, 220, 220, 1),
+                      // border: Border.all(
+                      //   color: Colors.blue[200],
+                      //   width: 1.0,
+                      // ),
+                      color: Colors.amber[100],
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 FractionallySizedBox(
