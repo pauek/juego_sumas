@@ -81,6 +81,7 @@ class MainScreen extends StatelessWidget {
                                     Navigator.of(context).pushNamed(
                                       './operation',
                                       arguments: stage,
+                                      //TODO: fix level and stage data
                                     );
                                   },
                                   child: ClipRRect(
