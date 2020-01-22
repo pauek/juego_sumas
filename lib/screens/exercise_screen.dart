@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/model/levels.dart';
+import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/widgets/options.dart';
 import 'package:juego_sumas/widgets/operation.dart';
@@ -44,53 +45,80 @@ class ExerciseScreen extends StatelessWidget {
                   builder: (context, exerciseSequence, child) {
                     return !exerciseSequence.isCorrect
                         ? Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                           children: <Widget>[
-                             Container(
-                               height: 45,
-                               width: double.infinity,
-                               child: FlatButton(
-                                color: Colors.amber[200],
-                                shape: StadiumBorder(),
-                                child: Text('Corregir'),
-                                onPressed: () {
-                                  exerciseSequence.checkResult();
-                                  print(exerciseSequence.progress);
-                                },
-                            ),
-                             ),
-                          ], 
-                        )
-                        : 
-                        Container(
-                          height: 45,
-                          width: double.infinity,
-                          color: Colors.green[200],
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text('Bien hecho!', style: TextStyle(fontSize: 18),),
                               Container(
+                                height: 45,
                                 width: double.infinity,
-                                margin: EdgeInsets.only(left: 5, right: 5 ),
-                                child: FlatButton(
-                                  color: Colors.green[400],
-                                  shape: StadiumBorder(),
-                                  child: Text('Siguiente'),
-                                  onPressed: () {
-                                    if (exerciseSequence.finished) {
-                                      // TODO: Show 'WELL DONE'animation
-                                      print('finish');
-                                      Navigator.of(context).pop();
-                                    } else {
-                                      print('next');
-                                      exerciseSequence.next();
-                                    }
+                                child: GestureDetector(
+                                  onTap: () {
+                                    exerciseSequence.checkResult();
+                                    print(exerciseSequence.progress);
                                   },
+                                  child: CustomButton(
+                                      height: 45,
+                                      width: double.infinity,
+                                      isCircle: false,
+                                      child: Text(
+                                        'Corregir',
+                                        style: TextStyle(
+                                            color: Colors.black87, fontSize: 18),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      color: Colors.amber[200]),
                                 ),
                               ),
                             ],
-                          ));
+                          )
+                        : AnimatedContainer(
+                            duration: Duration(seconds: 1),
+                            decoration: BoxDecoration(
+                              color: Colors.green[100],
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
+                              //   border:
+                              //       Border.all(color: Colors.black12, width: 3),
+                            ),
+                            height: 45,
+                            width: double.infinity,
+                            padding: EdgeInsets.only(top: 5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  'Bien hecho!',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  margin: EdgeInsets.only(left: 5, right: 5),
+                                  child: GestureDetector(
+                                    child: CustomButton(
+                                      height: 45,
+                                      width: 45,
+                                      color: Colors.green[400],
+                                      isCircle: false,
+                                      child: Text(
+                                        'Siguiente',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      if (exerciseSequence.finished) {
+                                        // TODO: Show 'WELL DONE'animation
+                                        print('finish');
+                                        Navigator.of(context).pop();
+                                      } else {
+                                        print('next');
+                                        exerciseSequence.next();
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ));
                   },
                 ),
               ),

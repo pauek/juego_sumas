@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,7 +54,7 @@ class MainScreen extends StatelessWidget {
             itemCount: stages.length,
             itemBuilder: (ctx, stage) {
               return Container(
-                height: stages[stage].length * mediaQuery.size.height *0.15,
+                height: stages[stage].length * mediaQuery.size.height * 0.15,
                 width: double.infinity,
                 // padding: EdgeInsets.symmetric(horizontal: 3.0),
                 // margin: EdgeInsets.all(10.0),
@@ -67,54 +68,67 @@ class MainScreen extends StatelessWidget {
                         // mainAxisAlignment: MainAxisAlignment.center,
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         // children: <Widget>[
-                          child: Container(
-                            // alignment: Alignment.center,
-                            height: 110,
-                            width: stages[stage][sameDeps].length * 150.0,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: stages[stage][sameDeps].length,
-                              itemBuilder: (ctx, level) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                      './operation',
-                                      arguments: stage,
-                                      //TODO: fix level and stage data
-                                    );
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Container(
-                                      height: mediaQuery.size.height * 0.3,
-                                      width: mediaQuery.size.width * 0.3,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[100 * stage],
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: Colors.black12,
-                                          width: 3,
-                                        ),
-                                      ),
-                                      padding: EdgeInsets.all(15),
-                                      // margin: EdgeInsets.symmetric(
-                                      //   horizontal: 5,
-                                      //   vertical: 5,
-                                      // ),
-                                      child: SvgPicture.asset(
-                                        'assets/images/ic-medium.svg',
-                                        fit: BoxFit.contain,
-                                        color: Colors.white70,
-                                        // child: Text(
-                                        // 'stage: ${stages[stage][sameDeps][level].sizeTop} deps: ${stages[stage][sameDeps][level].dependencies}'),
-                                      ),
-                                    ),
+                        child: Container(
+                          // alignment: Alignment.center,
+                          height: 110,
+                          width: stages[stage][sameDeps].length * 150.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: stages[stage][sameDeps].length,
+                            itemBuilder: (ctx, level) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    './operation',
+                                    arguments: stage,
+                                    //TODO: fix level and stage data
+                                  );
+                                },
+                                child: CustomButton(
+                                  height: mediaQuery.size.height * 0.3,
+                                  width: mediaQuery.size.width * 0.3,
+                                  color: Colors.blue[100 * stage],
+                                  isCircle: true,
+                                  child: SvgPicture.asset(
+                                    'assets/images/ic-medium.svg',
+                                    fit: BoxFit.contain,
+                                    color: Colors.white70,
+                                    // child: Text(
+                                    // 'stage: ${stages[stage][sameDeps][level].sizeTop} deps: ${stages[stage][sameDeps][level].dependencies}'),
                                   ),
-                                );
-                              },
-                            ),
+                                ),
+                                // child: ClipRRect(
+                                //   borderRadius: BorderRadius.circular(50),
+                                //   child: Container(
+                                //     height: mediaQuery.size.height * 0.3,
+                                //     width: mediaQuery.size.width * 0.3,
+                                //     decoration: BoxDecoration(
+                                //       color: Colors.blue[100 * stage],
+                                //       shape: BoxShape.circle,
+                                //       border: Border.all(
+                                //         color: Colors.black12,
+                                //         width: 3,
+                                //       ),
+                                //     ),
+                                //     padding: EdgeInsets.all(15),
+                                //     // margin: EdgeInsets.symmetric(
+                                //     //   horizontal: 5,
+                                //     //   vertical: 5,
+                                //     // ),
+                                // child: SvgPicture.asset(
+                                //   'assets/images/ic-medium.svg',
+                                //   fit: BoxFit.contain,
+                                //   color: Colors.white70,
+                                //   // child: Text(
+                                //   // 'stage: ${stages[stage][sameDeps][level].sizeTop} deps: ${stages[stage][sameDeps][level].dependencies}'),
+                                // ),
+                                //   ),
+                                // ),
+                              );
+                            },
                           ),
+                        ),
                         // ],
                       );
                     }),

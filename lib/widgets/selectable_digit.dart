@@ -34,7 +34,8 @@ class SelectableDigit extends StatelessWidget {
             decoration: BoxDecoration(
               color: color,
               borderRadius: BorderRadius.all(Radius.circular(15)),
-              border: Border.all(color: Colors.blue[200], width: 1),
+              // border: Border.all(color: Colors.blue[200], width: 1),
+              border: Border.all(color: Colors.black12, width: 3),
             ),
             child: Text(
               (seq.number[index] == -1 ? ' ' : '${seq.number[index]}'),
