@@ -22,7 +22,10 @@ class ExerciseSequence with ChangeNotifier {
   List<int> number = List<int>.generate(10, (i) => -1);
 
   int _selectedDigit = 0;
-  bool _correct = false; 
+
+  bool _correct = false;
+
+  int _progress = 0;
 
   int get selectedDigit => _selectedDigit;
 
@@ -45,30 +48,31 @@ class ExerciseSequence with ChangeNotifier {
   Exercise get current =>
       (_current < exercises.length ? exercises[_current] : null);
 
-  double get progress => _current / exercises.length;
+  double get progress => _progress / exercises.length ;
 
-  bool get finished => _current >= exercises.length;
+  bool get finished => _progress >= exercises.length;
 
   bool get isCorrect => _correct;
-
-
 
   void checkResult() {
     for (int i = 0; i < current.result.length; i++) {
       if (current.result[i] != number[i]) {
         // return false;
         _correct = false;
+        break;
+      } else {
+        _progress++;
+        _correct = true;
       }
     }
-    _correct = true;
-    _current++;
-     notifyListeners();
+    notifyListeners();
     // return true;
   }
 
   void next() {
     if (_current < exercises.length) {
-      // _current++;
+      print(_progress);
+      _current++;
       _selectedDigit = 0;
       number = List<int>.generate(10, (i) => -1);
       _correct = false;

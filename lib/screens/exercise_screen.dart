@@ -12,12 +12,16 @@ class ExerciseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final level = ModalRoute.of(context).settings.arguments;
-    final stage = ModalRoute.of(context).settings.arguments;
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    // int stage, level, dependencies;
+
+     int stage = (arguments != null ? arguments['stage'] : null);
+     int level = (arguments != null ? arguments['level'] : null);
+     int dependencies = (arguments != null ? arguments['sameDeps'] : null);
 
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
-          .generateExerciseSequence(level, stage, count: 2),
+          .generateExerciseSequence(stage, dependencies, level, count: 5),
       child: Scaffold(
         body: Column(
           children: <Widget>[
@@ -53,7 +57,6 @@ class ExerciseScreen extends StatelessWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     exerciseSequence.checkResult();
-                                    print(exerciseSequence.progress);
                                   },
                                   child: CustomButton(
                                       height: 45,
@@ -62,7 +65,8 @@ class ExerciseScreen extends StatelessWidget {
                                       child: Text(
                                         'Corregir',
                                         style: TextStyle(
-                                            color: Colors.black87, fontSize: 18),
+                                            color: Colors.black87,
+                                            fontSize: 18),
                                         textAlign: TextAlign.center,
                                       ),
                                       color: Colors.amber[200]),
@@ -71,7 +75,7 @@ class ExerciseScreen extends StatelessWidget {
                             ],
                           )
                         : AnimatedContainer(
-                            duration: Duration(seconds: 1),
+                            duration: Duration(seconds: 5),
                             decoration: BoxDecoration(
                               color: Colors.green[100],
                               borderRadius:
@@ -79,7 +83,7 @@ class ExerciseScreen extends StatelessWidget {
                               //   border:
                               //       Border.all(color: Colors.black12, width: 3),
                             ),
-                            height: 45,
+                            height: exerciseSequence.isCorrect ? 45 : 0.1,
                             width: double.infinity,
                             padding: EdgeInsets.only(top: 5),
                             child: Column(

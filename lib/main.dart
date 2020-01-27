@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         Provider<LevelService>.value(value: LevelService()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Juego sumas',
         home: MainScreen(),
         routes: {

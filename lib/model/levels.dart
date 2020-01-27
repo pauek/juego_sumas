@@ -336,9 +336,9 @@ class LevelService {
         ],
       ];
 
-  Exercise generateExercise(int level, int stage) {
+  Exercise generateExercise( int stage, int dependencies, int level) {
     LevelInstance instance =
-        LevelInstance(allLevels[stage][level][0]); //TODO: fix
+        LevelInstance(allLevels[stage][dependencies][level]);
     instance._generateColumns();
     return Exercise(
       '${DateTime.now().toString()}',
@@ -348,12 +348,18 @@ class LevelService {
     );
   }
 
-  ExerciseSequence generateExerciseSequence(int level, int stage,
+  ExerciseSequence generateExerciseSequence(int stage, int dependencies, int level,
       {int count = 5}) {
+        print('-');
+        print(stage); 
+        print(dependencies);
+        print(level);
+        print('-');
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
-      sequence.add(generateExercise(level, stage));
+      sequence.add(generateExercise(stage, dependencies, level));
     }
+
     return sequence;
   }
 }

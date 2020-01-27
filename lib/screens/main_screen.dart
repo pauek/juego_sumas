@@ -79,11 +79,12 @@ class MainScreen extends StatelessWidget {
                             itemBuilder: (ctx, level) {
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    './operation',
-                                    arguments: stage,
-                                    //TODO: fix level and stage data
-                                  );
+                                  Navigator.of(context).pushNamed('./operation',
+                                      arguments: {
+                                        'stage': stage,
+                                        'sameDeps': sameDeps,
+                                        'level': level
+                                      });
                                 },
                                 child: CustomButton(
                                   height: mediaQuery.size.height * 0.3,
