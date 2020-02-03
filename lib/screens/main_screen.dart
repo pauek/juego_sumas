@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/screens/exercise_screen.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/levels.dart';
@@ -80,7 +81,7 @@ class MainScreen extends StatelessWidget {
                               return GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).pushNamed(
-                                    './operation',
+                                    ExerciseScreen.routeName,
                                     arguments: stage,
                                     //TODO: fix level and stage data
                                   );
