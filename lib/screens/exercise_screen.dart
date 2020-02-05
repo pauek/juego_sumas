@@ -12,16 +12,13 @@ class ExerciseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
-    // int stage, level, dependencies;
-
-     int stage = (arguments != null ? arguments['stage'] : null);
-     int level = (arguments != null ? arguments['level'] : null);
-     int dependencies = (arguments != null ? arguments['sameDeps'] : null);
+    final List<int> args = ModalRoute.of(context).settings.arguments;
+    final int stageIndex = args[0];
+    final int levelIndex = args[1];
 
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
-          .generateExerciseSequence(stage, dependencies, level, count: 5),
+          .generateExerciseSequence(stageIndex, levelIndex, count: 2),
       child: Scaffold(
         body: Column(
           children: <Widget>[
