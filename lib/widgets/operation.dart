@@ -35,30 +35,55 @@ class _OperationState extends State<Operation> {
     final digits =
         exerciseSequence.number.take(exercise.result.length).toList();
 
-
-    return Wrap(
-      direction: Axis.vertical,
-      alignment: WrapAlignment.end,
-      crossAxisAlignment: WrapCrossAlignment.end,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        getText(exercise.top.reversed, false),
-        getText(exercise.bottom.reversed, true),
         Container(
-          width: 180,
-          height: 3,
-          color: Colors.black,
-          margin: EdgeInsets.symmetric(vertical: 5),
-        ),
-        Container(
-          height: 130,
-          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            for (int i = digits.length - 1; i >= 0; i--)
-              SelectableDigit(i),
-          ]),
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    '+',
+                    style: TextStyle(fontSize: 76),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          // SelectableDigit(1), 
+                          getText(exercise.top.reversed, false),
+                        ],
+                      ),
+                      getText(exercise.bottom.reversed, false),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                width: (65.0 * exercise.result.length),
+                child: Divider(
+                  color: Colors.black,
+                  thickness: 2,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = digits.length - 1; i >= 0; i--)
+                    SelectableDigit(i),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
   }
 }
-
-

@@ -30,7 +30,7 @@ class ExerciseScreen extends StatelessWidget {
               flex: 45,
               child: Operation(),
             ),
-            Spacer(flex: 5),
+            // Spacer(flex: 5),
             Expanded(
               flex: 25,
               child: Padding(
@@ -60,10 +60,11 @@ class ExerciseScreen extends StatelessWidget {
                                       width: double.infinity,
                                       isCircle: false,
                                       child: Text(
-                                        'Corregir',
+                                        'Corregir'.toUpperCase(),
                                         style: TextStyle(
-                                            color: Colors.black87,
-                                            fontSize: 18),
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.center,
                                       ),
                                       color: Colors.amber[200]),
@@ -100,9 +101,12 @@ class ExerciseScreen extends StatelessWidget {
                                       color: Colors.green[400],
                                       isCircle: false,
                                       child: Text(
-                                        'Siguiente',
+                                        'Siguiente'.toUpperCase(),
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 18),
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),

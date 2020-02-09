@@ -10,6 +10,7 @@ class DigitKeyboard extends StatelessWidget {
 
     return !exerciseSequence.isCorrect
         ? GridView.count(
+          physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 5,
             mainAxisSpacing: 10,
             crossAxisSpacing: 7,

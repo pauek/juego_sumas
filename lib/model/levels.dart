@@ -222,8 +222,8 @@ class LevelService {
           Level(1, 1, "_", [0], 0, Pos2D(0, 0)),
         ]),
         Stage(2, [
-          Level(1, 2, "__", [1], 1, Pos2D(0, -1)),
-          Level(2, 1, "__", [1], 2, Pos2D(1, -1)),
+          Level(1, 2, "__", [1], 1, Pos2D(-.5, -1)),
+          Level(2, 1, "__", [1], 2, Pos2D(.5, -1)),
           //Bloque 2: 2 sumas, sin acarreo (Level 4 - 6)
           Level(2, 2, "__", [1], 3, Pos2D(-1, 1)),
           Level(2, 3, "___", [2, 3, 4], 4, Pos2D(0, 1)),
@@ -299,7 +299,6 @@ class LevelService {
           Level(3, 3, "ccc", [33, 36], 41, Pos2D(-1, -1)),
           Level(4, 3, "ccc_", [37, 38], 42, Pos2D(0, -1)),
           Level(3, 4, "ccc_", [37, 38], 43, Pos2D(1, -1)),
-
           Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1)),
           Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1))
         ]),
@@ -309,11 +308,30 @@ class LevelService {
         ]),
       ];
 
-  getLevel(int stageIndex, int levelIndex) => allStages[stageIndex].getLevel(levelIndex);
+  getLevel(int stageIndex, int levelIndex) =>
+      allStages[stageIndex].getLevel(levelIndex);
+
+  int getLevelImage(int stageIndex, int levelIndex) {
+    Level currentLevel = allStages[stageIndex].getLevel(levelIndex);
+    int imgType;
+
+    if (currentLevel.sizeTop > currentLevel.sizeBottom) {
+      imgType = 1;
+    } else if (currentLevel.sizeTop < currentLevel.sizeBottom) {
+      imgType = 2;
+    } else if (currentLevel.sizeTop == currentLevel.sizeBottom) {
+      if (currentLevel.sizeTop == 1) {
+        imgType = 0;
+      } else {
+        imgType = 3;
+      }
+    }
+
+    return imgType;
+  }
 
   Exercise generateExercise(int stage, int level) {
-    LevelInstance instance =
-        LevelInstance(allStages[stage].getLevel(level));
+    LevelInstance instance = LevelInstance(allStages[stage].getLevel(level));
     instance._generateColumns();
     return Exercise(
       '${DateTime.now().toString()}',
@@ -325,15 +343,10 @@ class LevelService {
 
   ExerciseSequence generateExerciseSequence(int stage, int level,
       {int count = 5}) {
-        print('-');
-        print(stage); 
-        print(level);
-        print('-');
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
       sequence.add(generateExercise(stage, level));
     }
-
     return sequence;
   }
 }
