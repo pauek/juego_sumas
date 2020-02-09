@@ -26,7 +26,7 @@ class DigitKeyboard extends StatelessWidget {
                   isCircle: true,
                   child: Text(
                     '$index',
-                    style: TextStyle(fontSize: 24, color: Colors.white),
+                    style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -34,7 +34,7 @@ class DigitKeyboard extends StatelessWidget {
             }),
           )
         : Container(
-          height: 15,
+          // height: 15,
         );
   }
 }

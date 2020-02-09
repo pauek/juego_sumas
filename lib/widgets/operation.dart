@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/widgets/selectable_carry.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/widgets/selectable_digit.dart';
@@ -20,12 +21,11 @@ class _OperationState extends State<Operation> {
 
     Widget getText(numbers, isBottom) {
       String newNumber = '';
-      if (isBottom) {
-        newNumber = '+ ';
-      }
+
       numbers.forEach(
         (n) => newNumber = '$newNumber$n',
       );
+
       return Text(
         newNumber,
         style: TextStyle(fontSize: 76),
@@ -39,6 +39,14 @@ class _OperationState extends State<Operation> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          for (int i = digits.length - 1; i >= 0; i--)
+                            SelectableCarry(),
+                        ],
+                      ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
@@ -55,12 +63,8 @@ class _OperationState extends State<Operation> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          // SelectableDigit(1), 
-                          getText(exercise.top.reversed, false),
-                        ],
-                      ),
+                      
+                      getText(exercise.top.reversed, false),
                       getText(exercise.bottom.reversed, false),
                     ],
                   ),
@@ -73,12 +77,16 @@ class _OperationState extends State<Operation> {
                   thickness: 2,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = digits.length - 1; i >= 0; i--)
-                    SelectableDigit(i),
-                ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                height: 120.0, // TODO: fix to responsive!
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = digits.length - 1; i >= 0; i--)
+                      SelectableDigit(i),
+                  ],
+                ),
               ),
             ],
           ),

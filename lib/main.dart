@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/screens/win_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:juego_sumas/screens/main_screen.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ExerciseScreen.routeName: (ctx) => ExerciseScreen(),
           MainScreen.routeName: (ctx) => MainScreen(),
+          WinScreen.routeName: (ctx) => WinScreen(),
         },
       ),
     );

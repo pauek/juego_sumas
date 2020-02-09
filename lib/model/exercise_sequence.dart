@@ -25,6 +25,8 @@ class ExerciseSequence with ChangeNotifier {
 
   bool _correct = false;
 
+  bool _error = false; 
+
   int _progress = 0;
 
   int get selectedDigit => _selectedDigit;
@@ -36,7 +38,7 @@ class ExerciseSequence with ChangeNotifier {
 
   void setDigit(int value) {
     number[_selectedDigit] = value;
-    _selectedDigit++;
+    // _selectedDigit++;
     if (_selectedDigit >= current.result.length) {
       _selectedDigit = 0;
     }
@@ -54,11 +56,14 @@ class ExerciseSequence with ChangeNotifier {
 
   bool get isCorrect => _correct;
 
+  bool get isError => _error;
+
   void checkResult() {
     for (int i = 0; i < current.result.length; i++) {
       if (current.result[i] != number[i]) {
         // return false;
         _correct = false;
+        _error = true;
         break;
       } else {
         _progress++;

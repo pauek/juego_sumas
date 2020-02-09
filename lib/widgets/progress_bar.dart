@@ -26,7 +26,7 @@ class ProgressBar extends StatelessWidget {
           LinearPercentIndicator(
             width:  constrains.maxWidth * 0.8,
                 lineHeight: 15.0,
-                percent: progress < 1 ? progress + 0.01 : progress - 0.01,
+                percent: progress < 1 ? progress + 0.01 : progress - 0.03,
                 backgroundColor: Colors.amber[100],
                 progressColor: Colors.blue[200],
                 animationDuration: 520,
