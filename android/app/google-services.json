@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "517187371088",
+    "firebase_url": "https://juegosumas-93788.firebaseio.com",
+    "project_id": "juegosumas-93788",
+    "storage_bucket": "juegosumas-93788.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517187371088:android:e7f6b68e0706b346de9155",
+        "android_client_info": {
+          "package_name": "com.example.juego_sumas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517187371088-r2o94p2l9u8kc1g1nruq33u7uuu6fuqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACdq7mtpYDOOB-XGKFGKQ9GA6yIrzmH7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517187371088-r2o94p2l9u8kc1g1nruq33u7uuu6fuqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517187371088:android:ee702e7843c7ce16de9155",
+        "android_client_info": {
+          "package_name": "com.example.juego_sumas_parental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517187371088-r2o94p2l9u8kc1g1nruq33u7uuu6fuqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACdq7mtpYDOOB-XGKFGKQ9GA6yIrzmH7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517187371088-r2o94p2l9u8kc1g1nruq33u7uuu6fuqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

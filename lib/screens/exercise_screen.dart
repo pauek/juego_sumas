@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/database/database.dart' as db;
 import 'package:juego_sumas/model/levels.dart';
+import 'package:juego_sumas/model/log.dart';
 import 'package:juego_sumas/screens/win_screen.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +24,7 @@ class ExerciseScreen extends StatelessWidget {
           .generateExerciseSequence(stageIndex, levelIndex, count: 2),
       child: Scaffold(
         body: SafeArea(
-                  child: Column(
+          child: Column(
             children: <Widget>[
               Expanded(
                 flex: 5,
@@ -62,14 +64,18 @@ class ExerciseScreen extends StatelessWidget {
                                         width: double.infinity,
                                         isCircle: false,
                                         child: Text(
-                                          !exerciseSequence.isError ? 'Corregir'.toUpperCase() : 'Reintentar'.toUpperCase(),
+                                          !exerciseSequence.isError
+                                              ? 'Corregir'.toUpperCase()
+                                              : 'Reintentar'.toUpperCase(),
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                           textAlign: TextAlign.center,
                                         ),
-                                        color:  !exerciseSequence.isError ? Colors.amber[200] : Colors.red[200]),
+                                        color: !exerciseSequence.isError
+                                            ? Colors.amber[200]
+                                            : Colors.red[200]),
                                   ),
                                 ),
                               ],
@@ -85,11 +91,13 @@ class ExerciseScreen extends StatelessWidget {
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(vertical: 5),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
                                     'Bien hecho!',
-                                    style: TextStyle(fontSize: 18, color: Colors.white),
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white),
                                   ),
                                   Container(
                                     width: double.infinity,
@@ -112,9 +120,17 @@ class ExerciseScreen extends StatelessWidget {
                                       ),
                                       onTap: () {
                                         if (exerciseSequence.finished) {
-                                          // TODO: Show 'WELL DONE'animation
                                           print('finish');
-                                          Navigator.of(context).pushReplacementNamed(WinScreen.routeName);
+                                          db.sendLog(
+                                              'eYA6mXfzQf0sAnZNdnmb',
+                                              Log(
+                                                  levelId: '1',
+                                                  startTime: DateTime.now(),
+                                                  endTime: DateTime.now()));
+
+                                          Navigator.of(context)
+                                              .pushReplacementNamed(
+                                                  WinScreen.routeName);
                                         } else {
                                           print('next');
                                           exerciseSequence.next();

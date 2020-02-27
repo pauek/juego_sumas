@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:juego_sumas/database/database.dart' as db;
 import 'package:juego_sumas/model/exercise.dart';
+
+import 'log.dart';
 
 /*
 
@@ -25,7 +28,7 @@ class ExerciseSequence with ChangeNotifier {
 
   bool _correct = false;
 
-  bool _error = false; 
+  bool _error = false;
 
   int _progress = 0;
 
@@ -50,7 +53,7 @@ class ExerciseSequence with ChangeNotifier {
   Exercise get current =>
       (_current < exercises.length ? exercises[_current] : null);
 
-  double get progress => _progress / exercises.length ;
+  double get progress => _progress / exercises.length;
 
   bool get finished => _progress >= exercises.length;
 
@@ -76,12 +79,13 @@ class ExerciseSequence with ChangeNotifier {
 
   void next() {
     if (_current < exercises.length) {
-      print(_progress);
       _current++;
       _selectedDigit = 0;
       number = List<int>.generate(10, (i) => -1);
       _correct = false;
       notifyListeners();
+    } else {
+    
     }
   }
 }

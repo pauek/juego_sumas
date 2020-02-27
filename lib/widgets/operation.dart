@@ -40,13 +40,12 @@ class _OperationState extends State<Operation> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          for (int i = digits.length - 1; i >= 0; i--)
-                            SelectableCarry(),
-                        ],
-                      ),
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // for (int i = digits.length - 1; i >= 0; i--) SelectableCarry(),
+          ],
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
@@ -63,7 +62,6 @@ class _OperationState extends State<Operation> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      
                       getText(exercise.top.reversed, false),
                       getText(exercise.bottom.reversed, false),
                     ],
