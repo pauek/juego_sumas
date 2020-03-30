@@ -60,10 +60,16 @@ class _WinScreenState extends State<WinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-        FluttieAnimation(winAnimation),
-        Text("You win!"),
-      ]),
+      body: Column(mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+                child: Container(
+                    height: 500,
+                    width: 500,
+                    child: FluttieAnimation(winAnimation))),
+            // Text("You win!"),
+          ]),
     );
   }
 }

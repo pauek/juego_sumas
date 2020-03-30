@@ -124,7 +124,7 @@ class ExerciseScreen extends StatelessWidget {
                                           db.sendLog(
                                               'eYA6mXfzQf0sAnZNdnmb',
                                               Log(
-                                                  levelId: '1',
+                                                  levelId: '0',
                                                   startTime: DateTime.now(),
                                                   endTime: DateTime.now()));
 

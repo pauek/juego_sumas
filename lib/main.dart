@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/screens/code_screen.dart';
+import 'package:juego_sumas/screens/root_screen.dart';
 import 'package:juego_sumas/screens/win_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/levels.dart';
@@ -17,11 +19,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Juego sumas',
-        home: MainScreen(),
+        home: RootScreen(),
         routes: {
           ExerciseScreen.routeName: (ctx) => ExerciseScreen(),
           MainScreen.routeName: (ctx) => MainScreen(),
           WinScreen.routeName: (ctx) => WinScreen(),
+          CodeScreen.routeName: (ctx) => CodeScreen(),
         },
       ),
     );
