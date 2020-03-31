@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/widgets/selectable_digit.dart';
@@ -9,28 +11,32 @@ class Operation extends StatefulWidget {
 }
 
 class _OperationState extends State<Operation> {
+  Widget _digit(int num) {
+    if (num == null) {
+      return Container();
+    }
+    return Text(
+      num.toString(),
+      style: TextStyle(
+        fontSize: 76,
+      ),
+      textAlign: TextAlign.center,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final exerciseSequence = Provider.of<ExerciseSequence>(context);
     final exercise = exerciseSequence.current;
 
     if (exercise == null) {
+      // FIXME: Aquí s'hauria de donar un error.
       return Container();
     }
 
-    Widget getText(numbers, isBottom) {
-      String newNumber = '';
-      numbers.forEach(
-        (n) => newNumber = '$newNumber$n',
-      );
-      return Text(
-        newNumber,
-        style: TextStyle(fontSize: 76),
-      );
-    }
-
-    final digits =
-        exerciseSequence.number.take(exercise.result.length).toList();
+    final top = exercise.maxedTop;
+    final bottom = exercise.maxedBottom;
+    final result = exercise.result;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -43,46 +49,34 @@ class _OperationState extends State<Operation> {
             // for (int i = digits.length - 1; i >= 0; i--) SelectableCarry(),
           ],
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    '+',
-                    style: TextStyle(fontSize: 76),
+        Center(
+          child: Table(
+            defaultColumnWidth: IntrinsicColumnWidth(),
+            defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+            children: [
+              TableRow(
+                children: [Text(''), for (var d in top.reversed) _digit(d)],
+              ),
+              TableRow(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 10, bottom: 10),
+                    child: Icon(Icons.add, size: 60),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      getText(exercise.top.reversed, false),
-                      getText(exercise.bottom.reversed, false),
-                    ],
-                  ),
+                  for (var d in bottom.reversed) _digit(d)
                 ],
-              ),
-              Container(
-                width: (65.0 * exercise.result.length),
-                child: Divider(
-                  color: Colors.black,
-                  thickness: 2,
+                decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(width: 2, color: Colors.black)),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-                height: 120.0, // TODO: fix to responsive!
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (int i = digits.length - 1; i >= 0; i--)
-                      SelectableDigit(i),
-                  ],
-                ),
-              ),
+              TableRow(
+                children: [
+                  Text(''),
+                  for (int i = result.length - 1; i >= 0; i--)
+                    SelectableDigit(i),
+                ],
+              )
             ],
           ),
         ),

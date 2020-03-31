@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/screens/code_screen.dart';
-import 'package:juego_sumas/screens/main_screen.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
 
 class RootScreen extends StatefulWidget {
@@ -38,7 +37,7 @@ class _RootScreenState extends State<RootScreen> {
         }
         break;
       case AuthStatus.signedIn:
-        //show main screen
+        //show main screen  
         // Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
         break;
       default:

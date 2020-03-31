@@ -16,13 +16,14 @@ class SelectableDigit extends StatelessWidget {
       onTap: () {
         seq.selectedDigit = index;
       },
-      child: Column(
-        children: <Widget>[
-          AnimatedContainer(
-            duration: Duration(seconds: 1),
+      child: Container(
+        width: 60,
+        height: 120,
+        child: Center(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 250),
             curve: Curves.easeInOut,
             width: seq.selectedDigit == index ? 55 : 45,
-            margin: EdgeInsets.only(left: 5),
             padding: seq.selectedDigit == index
                 ? EdgeInsets.symmetric(horizontal: 7.5, vertical: 5)
                 : EdgeInsets.only(right: 3, left: 3),
@@ -37,7 +38,7 @@ class SelectableDigit extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
