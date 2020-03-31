@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/widgets/selectable_carry.dart';
-import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/widgets/selectable_digit.dart';
+import 'package:provider/provider.dart';
 
 class Operation extends StatefulWidget {
   @override
@@ -21,11 +20,9 @@ class _OperationState extends State<Operation> {
 
     Widget getText(numbers, isBottom) {
       String newNumber = '';
-
       numbers.forEach(
         (n) => newNumber = '$newNumber$n',
       );
-
       return Text(
         newNumber,
         style: TextStyle(fontSize: 76),

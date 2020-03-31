@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/database/database.dart' as db;
+import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:juego_sumas/model/log.dart';
 import 'package:juego_sumas/screens/win_screen.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
-import 'package:provider/provider.dart';
-import 'package:juego_sumas/widgets/options.dart';
 import 'package:juego_sumas/widgets/operation.dart';
+import 'package:juego_sumas/widgets/options.dart';
 import 'package:juego_sumas/widgets/progress_bar.dart';
-import 'package:juego_sumas/model/exercise_sequence.dart';
+import 'package:provider/provider.dart';
 
 class ExerciseScreen extends StatelessWidget {
   static const routeName = './operation';
@@ -139,7 +139,8 @@ class ExerciseScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              ));
+                              ),
+                            );
                     },
                   ),
                 ),
