@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Juego sumas',
-        home: RootScreen(),
+        // home: RootScreen(),
+        initialRoute: MainScreen.routeName,
         routes: {
           ExerciseScreen.routeName: (ctx) => ExerciseScreen(),
           MainScreen.routeName: (ctx) => MainScreen(),
