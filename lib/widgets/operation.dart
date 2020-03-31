@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
+import 'package:juego_sumas/widgets/selectable_carry.dart';
 import 'package:juego_sumas/widgets/selectable_digit.dart';
 import 'package:provider/provider.dart';
 
@@ -45,9 +46,6 @@ class _OperationState extends State<Operation> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // for (int i = digits.length - 1; i >= 0; i--) SelectableCarry(),
-          ],
         ),
         Center(
           child: Table(
@@ -55,7 +53,16 @@ class _OperationState extends State<Operation> {
             defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
             children: [
               TableRow(
-                children: [Text(''), for (var d in top.reversed) _digit(d)],
+                children: <Widget>[
+                  Container(),
+                  for (int i = top.length - 1; i >= 0; i--) SelectableCarry(),
+                ],
+              ),
+              TableRow(
+                children: [
+                  Container(),
+                  for (var d in top.reversed) _digit(d),
+                ],
               ),
               TableRow(
                 children: [
@@ -72,7 +79,7 @@ class _OperationState extends State<Operation> {
               ),
               TableRow(
                 children: [
-                  Text(''),
+                  Container(),
                   for (int i = result.length - 1; i >= 0; i--)
                     SelectableDigit(i),
                 ],

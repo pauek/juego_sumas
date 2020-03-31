@@ -3,44 +3,49 @@ import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:flutter/animation.dart';
 
-class SelectableCarry extends StatelessWidget {
-  // final int index;
-  // SelectableDigit(this.index);
+class SelectableCarry extends StatefulWidget {
+  @override
+  _SelectableCarryState createState() => _SelectableCarryState();
+}
 
-  final int index = 0;
+class _SelectableCarryState extends State<SelectableCarry> {
+  bool carry = false;
 
   @override
   Widget build(BuildContext context) {
-    final seq = Provider.of<ExerciseSequence>(context);
-    final color =
-        (seq.selectedDigit == index ? Colors.blue[100] : Colors.white);
-
     return GestureDetector(
       onTap: () {
-        seq.selectedDigit = index;
+        setState(() {
+          carry = !carry;
+        });
       },
-      child: Column(
-        children: <Widget>[
-          AnimatedContainer(
-            duration: Duration(seconds: 1),
-            curve: Curves.easeInOut,
-            width: seq.selectedDigit == index ? 45 : 35,
-            margin: EdgeInsets.symmetric(horizontal: 2.5),
-            padding: seq.selectedDigit == index
-                ? EdgeInsets.symmetric(horizontal: 2, vertical: 2)
-                : EdgeInsets.only(right: 0, left: 0),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-              border: Border.all(color: Colors.black12, width: 3),
+      child: Align(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 150),
+          curve: Curves.easeInOut,
+          width: 42,
+          height: 42,
+          padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(25)),
+            border: Border.all(
+              color: (carry ? Colors.orange : Colors.black12),
+              width: 2,
             ),
+            color: (carry ? Colors.orange[100] : Colors.white),
+          ),
+          child: Center(
             child: Text(
-              (seq.number[index] == -1 ? ' ' : '${seq.number[index]}'),
-              style: TextStyle(fontSize: 26),
+              (carry ? '1' : ''),
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                color: Colors.orange[900],
+              ),
               textAlign: TextAlign.center,
             ),
           ),
-        ],
+        ),
       ),
     );
   }
