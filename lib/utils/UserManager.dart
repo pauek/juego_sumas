@@ -1,33 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:juego_sumas/database/database.dart' as db;
-import 'package:uuid/uuid.dart';
 
 class UserManager {
-  var uuid = new Uuid();
+  static String kidId;
 
+  /*
   static Future startFirstTime(context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool firstTime = prefs.getBool('firstTime');
 
     if (firstTime == null || !firstTime) {
       await prefs.setBool("firstTime", true);
-      // TODO: generate UUID
-      // String kidId = uuid.v4().toString();
-      var kidId;
-
-      // String kidId = await db.createUser();
+      final String kidId = await db.createUser();
       await prefs.setString("kidId", kidId);
       return kidId;
     }
   }
+  */
 
-  static Future<String> getKidId() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get('kidId');
+  static Future<void> loadKidId() async {
+    // 1. Si ja el sabem, no cal fer res
+    if (kidId == null) {
+      // 2. Encara no el sabem, anem a mirar si està a SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      kidId = prefs.getString('kidId');
+
+      // 3. Si allà no hi és, demanem un object nou a Firestore
+      if (kidId == null) {
+        kidId = await db.createUser();
+        await prefs.setString("kidId", kidId);
+      }
+    }
+    print("Kid Id = $kidId");
   }
 
-  static Future<String> getKidParent() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get('parent');
-  }
+  static Stream<DocumentSnapshot> kidSnapshots() async* {}
 }

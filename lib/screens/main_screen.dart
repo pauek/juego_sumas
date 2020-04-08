@@ -6,7 +6,7 @@ import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
-  static const routeName = './';
+  static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {
