@@ -1,36 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-class CodeScreen extends StatefulWidget {
+class CodeScreen extends StatelessWidget {
   static const routeName = './codeScreen';
-  CodeScreen();
-
-  @override
-  _CodeScreenState createState() => _CodeScreenState();
-}
-
-class _CodeScreenState extends State<CodeScreen> {
-  /*
-  StreamController<String> streamKidId =
-      new StreamController<String>.broadcast();
-  */
-
-  @override
-  void initState() {
-    super.initState();
-    // getKidId();
-  }
-
-  /*
-
-  getKidId() async {
-    String id = await UserManager.getKidId();
-    streamKidId.add(id);
-  }
-  */
 
   @override
   Widget build(BuildContext context) {

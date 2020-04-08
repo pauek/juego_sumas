@@ -9,44 +9,8 @@ class RootScreen extends StatefulWidget {
   _RootScreenState createState() => _RootScreenState();
 }
 
-enum AuthStatus {
-  notSignedIn,
-  signedIn,
-}
-
 class _RootScreenState extends State<RootScreen> {
-  // AuthStatus authStatus = AuthStatus.notSignedIn;
-
-  /*
-
-  @override
-  void initState() {
-    super.initState();
-    initAuthStatus();
-  }
-
-  initAuthStatus() async {
-    authStatus = (await UserManager.getKidParent()) != null
-        ? AuthStatus.signedIn
-        : AuthStatus.notSignedIn;
-
-    await UserManager.startFirstTime(context);
-
-    switch (authStatus) {
-      case AuthStatus.notSignedIn:
-        // Show qr screen
-        Navigator.of(context).pushReplacementNamed(CodeScreen.routeName);
-        break;
-      case AuthStatus.signedIn:
-        //show main screen
-        // Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
-        break;
-      default:
-        break;
-    }
-  }
-  */
-
+  //TODO: create splash screen
   Widget _splash() {
     return Container(
       color: Colors.blue,

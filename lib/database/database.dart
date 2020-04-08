@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:juego_sumas/model/kid.dart';
 import 'package:juego_sumas/model/log.dart';
 
 Future<void> sendLog(String kidId, Log log) async {
@@ -9,8 +10,9 @@ Future<void> sendLog(String kidId, Log log) async {
 
 Future<String> createUser() async {
   DocumentReference kidRef = Firestore.instance.collection("kids").document();
-  await kidRef.setData({
-    "createdAt": DateTime.now(),
-  });
+
+  Kid kid = new Kid(createdAt: DateTime.now());
+
+  await kidRef.setData(kid.toFirestore());
   return kidRef.documentID;
 }
