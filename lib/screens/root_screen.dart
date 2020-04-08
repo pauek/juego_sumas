@@ -25,19 +25,17 @@ class _RootScreenState extends State<RootScreen> {
     authStatus = (await UserManager.getKidParent()) != null
         ? AuthStatus.signedIn
         : AuthStatus.notSignedIn;
-
-    var kidId = await UserManager.getKidId();
+        
+    await UserManager.startFirstTime(context);
 
     switch (authStatus) {
       case AuthStatus.notSignedIn:
         //Show qr screen
         Navigator.of(context).pushReplacementNamed(CodeScreen.routeName);
-        if (kidId == null || kidId == '') {
-          UserManager.startFirstTime(context);
-        }
+
         break;
       case AuthStatus.signedIn:
-        //show main screen  
+        //show main screen
         // Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
         break;
       default:

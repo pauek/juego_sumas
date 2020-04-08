@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         home: RootScreen(),
         routes: {
           ExerciseScreen.routeName: (ctx) => ExerciseScreen(),
-          MainScreen.routeName: (ctx) => MainScreen(),
+          // MainScreen.routeName: (ctx) => MainScreen(),
           WinScreen.routeName: (ctx) => WinScreen(),
           CodeScreen.routeName: (ctx) => CodeScreen(),
         },

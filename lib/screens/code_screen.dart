@@ -22,7 +22,12 @@ class _CodeScreenState extends State<CodeScreen> {
   }
 
   getKidId() async {
-    var id = await UserManager.getKidId();
+    String id = await UserManager.getKidId();
+
+    if (id == '' || id == null) {
+      id = await UserManager.startFirstTime(context);
+    }
+
     streamKidId.add(id);
   }
 

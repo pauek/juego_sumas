@@ -8,23 +8,11 @@ Future<void> sendLog(String kidId, Log log) async {
       .add(log.toFirestore());
 }
 
-Future<void> addLogsCollection() async {
-  String kidId = await UserManager.getKidId();
-
-  // await Firestore.instance.collection('kid/$kidId').add();
-
-}
-
 Future<String> createUser() async {
- DocumentReference kid =  await Firestore.instance.collection("kids").add({
-    "name": "",
-    "createdAt": DateTime.now(), 
-    'parent': ""
-  }); 
-
-  //todo: add logs collection 
-
-
-
-  return kid.documentID;
+  var response = Firestore.instance
+      .collection("kids")
+      .document('documentId')
+      .setData({"name": "", "createdAt": DateTime.now(), 'parent': ""});
+      
+  print(response);
 }

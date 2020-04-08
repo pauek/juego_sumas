@@ -42,13 +42,13 @@ class _WinScreenState extends State<WinScreen> {
     }
   }
 
-  @override
-  void initState() {
-    Timer(Duration(seconds: 3),
-        () => Navigator.of(context).pushNamed(MainScreen.routeName));
-    super.initState();
-    prepareAnimations();
-  }
+  // @override
+  // void initState() {
+  //   Timer(Duration(seconds: 3),
+  //       // () => Navigator.of(context).pushNamed(MainScreen.routeName));
+  //   super.initState();
+  //   prepareAnimations();
+  // }
 
   @override
   dispose() {
