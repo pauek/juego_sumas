@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/screens/main_screen.dart';
+import 'package:juego_sumas/pages/main/main_page.dart';
 import 'package:fluttie/fluttie.dart';
+import 'package:juego_sumas/utils/style.dart';
 
 class WinScreen extends StatefulWidget {
   static const routeName = './winScreen';
@@ -25,12 +26,13 @@ class _WinScreenState extends State<WinScreen> {
     }
 
     var animation = await instance
-        .loadAnimationFromAsset("assets/animations/win_animation.json");
+        .loadAnimationFromAsset("assets/animations/lose_animation.json");
 
     winAnimation = await instance.prepareAnimation(
+      
       animation,
       duration: const Duration(seconds: 3),
-      repeatCount: const RepeatCount.infinite(),
+      // repeatCount: const RepeatCount.infinite(),
       repeatMode: RepeatMode.START_OVER,
     );
 
@@ -42,13 +44,13 @@ class _WinScreenState extends State<WinScreen> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   Timer(Duration(seconds: 3),
-  //       // () => Navigator.of(context).pushNamed(MainScreen.routeName));
-  //   super.initState();
-  //   prepareAnimations();
-  // }
+  @override
+  void initState() {
+    // Timer(Duration(seconds:3),
+    //     () => Navigator.of(context).pushReplacementNamed(MainPage.routeName));
+    super.initState();
+    prepareAnimations();
+  }
 
   @override
   dispose() {
@@ -65,10 +67,10 @@ class _WinScreenState extends State<WinScreen> {
           children: [
             Center(
                 child: Container(
-                    height: 500,
-                    width: 500,
+                    height:450,
+                    width: 600,
                     child: FluttieAnimation(winAnimation))),
-            // Text("You win!"),
+            Style.body("¡Bien hecho! Has superado el nivel", fontSize: 22),
           ]),
     );
   }

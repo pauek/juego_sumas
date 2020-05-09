@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:juego_sumas/model/levels.dart';
-import 'package:juego_sumas/screens/exercise_screen.dart';
+import 'package:juego_sumas/pages/exersice/exercise_page.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 
-class MainScreen extends StatelessWidget {
-  static const routeName = '/';
+class MainPage extends StatefulWidget {
+  static const routeName = "/";
+  @override
+  _MainPageState createState() => _MainPageState();
+}
 
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final stages = Provider.of<LevelService>(context).allStages;
@@ -101,7 +105,7 @@ class LevelWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).pushNamed(
-            ExerciseScreen.routeName,
+            ExercisePage.routeName,
             arguments: [stageIndex, levelIndex],
           );
         },
@@ -110,13 +114,7 @@ class LevelWidget extends StatelessWidget {
             width: size - 2 * _padding, // 2 * padding
             color: Colors.blue[100 * stageIndex],
             isCircle: true,
-            child: getImage(levelImage)
-            //  SvgPicture.asset(
-            //   'assets/images/ic-medium.svg',
-            //   fit: BoxFit.contain,
-            //   color: Colors.white70,
-            // ),
-            ),
+            child: getImage(levelImage)),
       ),
     );
   }

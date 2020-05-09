@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/utils/style.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
@@ -10,31 +11,34 @@ class DigitKeyboard extends StatelessWidget {
 
     return !exerciseSequence.isCorrect
         ? GridView.count(
-          physics: NeverScrollableScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 5,
             mainAxisSpacing: 10,
             crossAxisSpacing: 7,
             children: List.generate(10, (index) {
-              return GestureDetector(
-                onTap: () {
+              return FlatButton(
+                onPressed: () {
                   exerciseSequence.setDigit(index);
                 },
-                child: CustomButton(
-                  height: 50,
-                  width: 50,
-                  color: Colors.blue[200],
-                  isCircle: true,
-                  child: Text(
-                    '$index',
-                    style: TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+                color: Colors.blue[200],
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    side: BorderSide(
+                      color: Colors.black12,
+                      width: 4,
+                      style: BorderStyle.solid,
+                    )),
+                child: Style.body(
+                  '$index',
+                  color: Colors.white,
+                  textAlign: TextAlign.center,
+                  fontSize: 32
                 ),
               );
             }),
           )
         : Container(
-          // height: 15,
-        );
+            // height: 15,
+            );
   }
 }

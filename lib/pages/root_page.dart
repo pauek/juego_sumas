@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/screens/code_screen.dart';
-import 'package:juego_sumas/screens/main_screen.dart';
+import 'package:juego_sumas/pages/code_screen.dart';
+import 'package:juego_sumas/pages/main/main_page.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
 
-class RootScreen extends StatefulWidget {
+class RootPage extends StatefulWidget {
   @override
-  _RootScreenState createState() => _RootScreenState();
+  _RootPageState createState() => _RootPageState();
 }
 
-class _RootScreenState extends State<RootScreen> {
+class _RootPageState extends State<RootPage> {
   //TODO: create splash screen
   Widget _splash() {
     return Container(
@@ -17,8 +17,8 @@ class _RootScreenState extends State<RootScreen> {
     );
   }
 
-  void goToMainScreen() async {
-    Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
+  void goToMainPage() async {
+    Navigator.of(context).pushReplacementNamed(MainPage.routeName);
   }
 
   @override
@@ -48,7 +48,7 @@ class _RootScreenState extends State<RootScreen> {
                     if (!hasParent) {
                       return CodeScreen();
                     }
-                    return MainScreen();
+                    return MainPage();
 
                   case ConnectionState.done:
                     return Placeholder();

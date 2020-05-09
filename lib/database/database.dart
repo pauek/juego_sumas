@@ -11,8 +11,9 @@ Future<void> sendLog(String kidId, Log log) async {
 Future<String> createUser() async {
   DocumentReference kidRef = Firestore.instance.collection("kids").document();
 
-  Kid kid = new Kid(createdAt: DateTime.now());
-
-  await kidRef.setData(kid.toFirestore());
+  // Kid kid = new Kid(createdAt: DateTime.now());
+  await kidRef.setData({
+    "createdAt": DateTime.now(),
+  });
   return kidRef.documentID;
 }

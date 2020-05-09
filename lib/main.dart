@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/screens/code_screen.dart';
-import 'package:juego_sumas/screens/root_screen.dart';
-import 'package:juego_sumas/screens/win_screen.dart';
+import 'package:juego_sumas/pages/code_screen.dart';
+import 'package:juego_sumas/pages/exersice/exercise_page.dart';
+import 'package:juego_sumas/pages/root_page.dart';
+import 'package:juego_sumas/pages/win_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/levels.dart';
-import 'package:juego_sumas/screens/main_screen.dart';
-import 'package:juego_sumas/screens/exercise_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,9 +18,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Juego sumas',
-        home: RootScreen(),
+        theme: ThemeData(fontFamily: 'Baloo'),
+        home: RootPage(),
         routes: {
-          ExerciseScreen.routeName: (ctx) => ExerciseScreen(),
+          ExercisePage.routeName: (ctx) => ExercisePage(),
           // MainScreen.routeName: (ctx) => MainScreen(),
           WinScreen.routeName: (ctx) => WinScreen(),
           CodeScreen.routeName: (ctx) => CodeScreen(),
