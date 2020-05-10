@@ -7,6 +7,9 @@ import 'package:juego_sumas/utils/style.dart';
 
 class WinScreen extends StatefulWidget {
   static const routeName = './winScreen';
+  final bool didWin;
+
+  WinScreen({this.didWin});
 
   @override
   _WinScreenState createState() => _WinScreenState();
@@ -24,12 +27,16 @@ class _WinScreenState extends State<WinScreen> {
       print("Animations are not supported on this platform");
       return;
     }
-
-    var animation = await instance
-        .loadAnimationFromAsset("assets/animations/lose_animation.json");
+    var animation;
+    if (widget.didWin) {
+      animation = await instance
+          .loadAnimationFromAsset("assets/animations/win_animation1.json");
+    } else {
+      animation  = await instance
+        .loadAnimationFromAsset("assets/animations/lose_animation1.json");
+    }
 
     winAnimation = await instance.prepareAnimation(
-      
       animation,
       duration: const Duration(seconds: 3),
       // repeatCount: const RepeatCount.infinite(),
@@ -46,8 +53,8 @@ class _WinScreenState extends State<WinScreen> {
 
   @override
   void initState() {
-    // Timer(Duration(seconds:3),
-    //     () => Navigator.of(context).pushReplacementNamed(MainPage.routeName));
+    Timer(Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacementNamed(MainPage.routeName));
     super.initState();
     prepareAnimations();
   }
@@ -67,7 +74,7 @@ class _WinScreenState extends State<WinScreen> {
           children: [
             Center(
                 child: Container(
-                    height:450,
+                    height: 450,
                     width: 600,
                     child: FluttieAnimation(winAnimation))),
             Style.body("¡Bien hecho! Has superado el nivel", fontSize: 22),

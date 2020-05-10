@@ -48,7 +48,7 @@ class StageWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Container(
-        color: Colors.amber[100 * stageIndex],
+        // color: Colors.amber[100 * stageIndex],
         height: MediaQuery.of(context).size.width * 0.3 * stage.height,
         child: Stack(children: levelWidgets),
       ),

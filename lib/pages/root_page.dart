@@ -12,8 +12,27 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   //TODO: create splash screen
   Widget _splash() {
-    return Container(
-      color: Colors.blue,
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Container(
+          color: Colors.white,
+          height: double.infinity,
+          width: double.infinity,
+          child: Image.asset(
+            "assets/images/bg_splash.png",
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          height: 200,
+          width: 200,
+          decoration: BoxDecoration(
+              color: Colors.amber[200],
+              borderRadius: BorderRadius.circular(100)),
+          // child: Style.title('Logo'),
+        ),
+      ],
     );
   }
 

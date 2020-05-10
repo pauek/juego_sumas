@@ -80,9 +80,14 @@ class ExercisePage extends StatelessWidget {
                                                     startTime: DateTime.now(),
                                                     endTime: DateTime.now()));
 
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                                    WinScreen.routeName);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      WinScreen(
+                                                        didWin: false,
+                                                      )),
+                                            );
                                           } else {
                                             print('next');
                                             exerciseSequence.next();
@@ -127,9 +132,13 @@ class ExercisePage extends StatelessWidget {
                                                 startTime: DateTime.now(),
                                                 endTime: DateTime.now()));
 
-                                        Navigator.of(context)
-                                            .pushReplacementNamed(
-                                                WinScreen.routeName);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => WinScreen(
+                                                    didWin: false,
+                                                  )),
+                                        );
                                       } else {
                                         print('next');
                                         exerciseSequence.next();

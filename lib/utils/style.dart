@@ -69,15 +69,43 @@ class Style {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          SvgPicture.asset(
-            'assets/images/ic-hard.svg',
-            color: Colors.black12,
-            // fit: BoxFit.cover,
+          Transform.rotate(
+            angle: 45,
+            child: Container(
+              margin: EdgeInsets.all(2),
+              width: 40,
+              height: 40,
+              // decoration: BoxDecoration(
+              //   // color: Colors.black,
+              //   // borderRadius: BorderRadius.circular(50),
+              //   shape: BoxShape.circle,
+              //   border: Border(
+              //       right: BorderSide(style: BorderStyle.none),
+              //       top: BorderSide(style: BorderStyle.none),
+              //       bottom: BorderSide(style: BorderStyle.none),
+              //       left: BorderSide(
+              //           color: Colors.black12,
+              //           width: 5,
+              //           style: BorderStyle.solid)),
+              // ),
+            ),
           ),
           title(text, color: Colors.black26, textAlign: TextAlign.center),
-          SvgPicture.asset(
-            'assets/images/ic-hard.svg',
-            color: Colors.black12,
+          Transform.rotate(
+            angle: 45,
+            child: Container(
+              margin: EdgeInsets.all(2),
+              width: 40,
+              height: 40,
+              // decoration: BoxDecoration(
+              //     // color: Colors.black,
+              //     // borderRadius: BorderRadius.circular(50),
+              //     border: Border(
+              //         right: BorderSide(
+              //             color: Colors.black12,
+              //             width: 5,
+              //             style: BorderStyle.solid))),
+            ),
           ),
         ],
       ),
