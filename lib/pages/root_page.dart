@@ -20,7 +20,7 @@ class _RootPageState extends State<RootPage> {
           height: double.infinity,
           width: double.infinity,
           child: Image.asset(
-            "assets/images/bg_splash.png",
+            "assets/images/bg_splash1.png",
             fit: BoxFit.cover,
           ),
         ),
