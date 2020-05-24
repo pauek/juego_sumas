@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:juego_sumas/database/database.dart';
 import 'package:juego_sumas/pages/code_screen.dart';
 import 'package:juego_sumas/pages/main/main_page.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
+
+
+//TODO: fix this page!!! 
 
 class RootPage extends StatefulWidget {
   @override
@@ -10,7 +14,17 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
-  //TODO: create splash screen
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // _getData();
+  }
+
+  _getData() {
+    DataBase.isRegistred();
+  }
+
   Widget _splash() {
     return Stack(
       alignment: Alignment.center,
@@ -24,14 +38,14 @@ class _RootPageState extends State<RootPage> {
             fit: BoxFit.cover,
           ),
         ),
-        Container(
-          height: 200,
-          width: 200,
-          decoration: BoxDecoration(
-              color: Colors.amber[200],
-              borderRadius: BorderRadius.circular(100)),
-          // child: Style.title('Logo'),
-        ),
+        // Container(
+        //   height: 200,
+        //   width: 200,
+        //   decoration: BoxDecoration(
+        //       color: Colors.amber[200],
+        //       borderRadius: BorderRadius.circular(100)),
+        //   // child: Style.title('Logo'),
+        // ),
       ],
     );
   }
@@ -42,6 +56,15 @@ class _RootPageState extends State<RootPage> {
 
   @override
   Widget build(BuildContext context) {
+    // return Container(
+    //   color: Colors.white,
+    //   height: double.infinity,
+    //   width: double.infinity,
+    //   child: Image.asset(
+    //     "assets/images/bg_splash1.png",
+    //     fit: BoxFit.cover,
+    //   ),
+    // );
     return FutureBuilder<void>(
       future: UserManager.loadKidId(),
       builder: (context, AsyncSnapshot kidIdSnashot) {
@@ -67,6 +90,11 @@ class _RootPageState extends State<RootPage> {
                     if (!hasParent) {
                       return CodeScreen();
                     }
+                    Container(
+                      height: 50,
+                    );
+                    // goToMainPage();
+                    // break;
                     return MainPage();
 
                   case ConnectionState.done:

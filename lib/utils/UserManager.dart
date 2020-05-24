@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:juego_sumas/database/database.dart' as db;
+import 'package:juego_sumas/database/database.dart';
 
 class UserManager {
 
@@ -16,7 +15,7 @@ class UserManager {
 
       // 3. Si allà no hi és, demanem un object nou a Firestore
       if (kidId == null) {
-        kidId = await db.createUser();
+        kidId = await DataBase.createUser();
         await prefs.setString("kidId", kidId);
       }
     }

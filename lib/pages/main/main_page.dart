@@ -100,6 +100,7 @@ class LevelWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size.width * 0.3;
     final int levelImage = Provider.of<LevelService>(context)
         .getLevelImage(stageIndex, levelIndex);
+    final bgColor = Provider.of<LevelService>(context).getColor(stageIndex);
     return Padding(
       padding: const EdgeInsets.all(_padding),
       child: GestureDetector(
@@ -112,7 +113,7 @@ class LevelWidget extends StatelessWidget {
         child: CustomButton(
             height: size - 2 * _padding, // 2 * padding
             width: size - 2 * _padding, // 2 * padding
-            color: Colors.blue[100 * stageIndex],
+            color: bgColor,
             isCircle: true,
             child: getImage(levelImage)),
       ),

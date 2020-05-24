@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/database/database.dart' as db;
+import 'package:juego_sumas/database/database.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:juego_sumas/model/log.dart';
@@ -20,6 +20,8 @@ class ExercisePage extends StatelessWidget {
     final int stageIndex = args[0];
     final int levelIndex = args[1];
 
+    final mainColor = Provider.of<LevelService>(context).getColor(stageIndex);
+
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
           .generateExerciseSequence(stageIndex, levelIndex, count: 2),
@@ -29,17 +31,17 @@ class ExercisePage extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 flex: 5,
-                child: ProgressBar(),
+                child: ProgressBar(mainColor),
               ),
               Expanded(
                 flex: 50,
-                child: Operation(),
+                child: Operation(mainColor),
               ),
               Expanded(
                 flex: 20,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: DigitKeyboard(),
+                  child: DigitKeyboard(mainColor),
                 ),
               ),
               Expanded(
@@ -72,7 +74,7 @@ class ExercisePage extends StatelessWidget {
                                         child: Style.button("SIGUIENTE", () {
                                           if (exerciseSequence.finished) {
                                             print('finish');
-                                            db.sendLog(
+                                            DataBase.sendLog(
                                                 'eYA6mXfzQf0sAnZNdnmb',
                                                 Log(
                                                     levelId:
@@ -125,7 +127,7 @@ class ExercisePage extends StatelessWidget {
                                     child: Style.button("SIGUIENTE", () {
                                       if (exerciseSequence.finished) {
                                         print('finish');
-                                        db.sendLog(
+                                        DataBase.sendLog(
                                             'eYA6mXfzQf0sAnZNdnmb',
                                             Log(
                                                 levelId: '0',

@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 
 class DigitKeyboard extends StatelessWidget {
+  final Color currentColor;
+  DigitKeyboard(this.currentColor);
+
   @override
   Widget build(BuildContext context) {
     final exerciseSequence = Provider.of<ExerciseSequence>(context);
@@ -20,7 +23,7 @@ class DigitKeyboard extends StatelessWidget {
                 onPressed: () {
                   exerciseSequence.setDigit(index);
                 },
-                color: Colors.blue[200],
+                color: currentColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                     side: BorderSide(
@@ -28,12 +31,10 @@ class DigitKeyboard extends StatelessWidget {
                       width: 4,
                       style: BorderStyle.solid,
                     )),
-                child: Style.body(
-                  '$index',
-                  color: Colors.white,
-                  textAlign: TextAlign.center,
-                  fontSize: 32
-                ),
+                child: Style.body('$index',
+                    color: Colors.white,
+                    textAlign: TextAlign.center,
+                    fontSize: 32),
               );
             }),
           )

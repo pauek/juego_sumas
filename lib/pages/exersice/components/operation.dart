@@ -8,6 +8,8 @@ import 'package:juego_sumas/widgets/selectable_carry.dart';
 import 'package:provider/provider.dart';
 
 class Operation extends StatefulWidget {
+  final Color currentColor;
+  Operation(this.currentColor);
   @override
   _OperationState createState() => _OperationState();
 }
@@ -69,20 +71,25 @@ class _OperationState extends State<Operation> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(right: 10, bottom: 10),
-                    child: Icon(Icons.add, size: 60, color: Colors.black.withOpacity(0.8),),
+                    child: Icon(
+                      Icons.add,
+                      size: 60,
+                      color: Colors.black.withOpacity(0.8),
+                    ),
                   ),
                   for (var d in bottom.reversed) _digit(d)
                 ],
                 decoration: BoxDecoration(
-                  border:
-                      Border(bottom: BorderSide(width: 3, color: Colors.black.withOpacity(0.8))),
+                  border: Border(
+                      bottom: BorderSide(
+                          width: 3, color: Colors.black.withOpacity(0.8))),
                 ),
               ),
               TableRow(
                 children: [
                   Container(),
                   for (int i = result.length - 1; i >= 0; i--)
-                    SelectableDigit(i),
+                    SelectableDigit(i, widget.currentColor),
                 ],
               )
             ],

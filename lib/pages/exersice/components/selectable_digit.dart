@@ -5,13 +5,14 @@ import 'package:flutter/animation.dart';
 
 class SelectableDigit extends StatelessWidget {
   final int index;
-  SelectableDigit(this.index);
+  final Color currentColor;
+  SelectableDigit(this.index, this.currentColor);
 
   @override
   Widget build(BuildContext context) {
     final seq = Provider.of<ExerciseSequence>(context);
     final color =
-        (seq.selectedDigit == index ? Colors.blue[100] : Colors.white);
+        (seq.selectedDigit == index ? currentColor : Colors.white);
     return GestureDetector(
       onTap: () {
         seq.selectedDigit = index;

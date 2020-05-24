@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:juego_sumas/model/exercise.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
@@ -209,7 +211,8 @@ class LevelInstance {
 class Stage {
   double height; // Aquesta alçada és un multiplicador de l'alçada d'un botó
   List<Level> levels;
-  Stage(this.height, this.levels);
+  Color color;
+  Stage(this.height, this.levels, this.color);
 
   int get numLevels => levels.length;
   Level getLevel(int index) => levels[index];
@@ -218,95 +221,126 @@ class Stage {
 class LevelService {
   List<Stage> get allStages => [
         //Bloque 1: 1 suma, sin acarreo (Level 1 - 3)
-        Stage(1, [
-          Level(1, 1, "_", [0], 0, Pos2D(0, 0)),
-        ]),
-        Stage(2, [
-          Level(1, 2, "__", [1], 1, Pos2D(-.5, -1)),
-          Level(2, 1, "__", [1], 2, Pos2D(.5, -1)),
-          //Bloque 2: 2 sumas, sin acarreo (Level 4 - 6)
-          Level(2, 2, "__", [1], 3, Pos2D(-1, 1)),
-          Level(2, 3, "___", [2, 3, 4], 4, Pos2D(0, 1)),
-          Level(3, 2, "___", [2, 3, 4], 5, Pos2D(1, 1))
-        ]),
+        Stage(
+            1,
+            [
+              Level(1, 1, "_", [0], 0, Pos2D(0, 0)),
+            ],
+            Colors.transparent),
+        Stage(
+            2,
+            [
+              Level(1, 2, "__", [1], 1, Pos2D(-.5, -1)),
+              Level(2, 1, "__", [1], 2, Pos2D(.5, -1)),
+              //Bloque 2: 2 sumas, sin acarreo (Level 4 - 6)
+              Level(2, 2, "__", [1], 3, Pos2D(-1, 1)),
+              Level(2, 3, "___", [2, 3, 4], 4, Pos2D(0, 1)),
+              Level(3, 2, "___", [2, 3, 4], 5, Pos2D(1, 1))
+            ],
+            Colors.lightGreen[200]),
         //Bloque 3: 1 suma, 1 acarreo (Level 7 - 9)
-        Stage(1, [
-          Level(1, 1, "c", [1], 6, Pos2D(-1, 0)),
-          Level(2, 1, "c_", [2, 3, 7], 7, Pos2D(0, 0)),
-          Level(1, 2, "c_", [2, 3, 7], 8, Pos2D(1, 0)),
-        ]),
+        Stage(
+            1,
+            [
+              Level(1, 1, "c", [1], 6, Pos2D(-1, 0)),
+              Level(2, 1, "c_", [2, 3, 7], 7, Pos2D(0, 0)),
+              Level(1, 2, "c_", [2, 3, 7], 8, Pos2D(1, 0)),
+            ],
+            Colors.lightGreen[200]),
         //Bloque 4: 2 sumas, 1 acarreo (Level 10 - 17)
-        Stage(5, [
-          Level(2, 2, "c_", [4, 8, 9], 9, Pos2D(0, -1)),
-          //
-          Level(2, 3, "c__", [5, 6, 10], 10, Pos2D(-.5, -.5)),
-          Level(3, 2, "c__", [5, 6, 10], 11, Pos2D(.5, -.5)),
-          //
-          Level(2, 2, "_c", [10], 12, Pos2D(0, 0)),
-          //
-          Level(2, 3, "_c_", [11, 12, 13], 13, Pos2D(-.5, .5)),
-          Level(3, 2, "_c_", [11, 12, 13], 14, Pos2D(.5, .5)),
-          //
-          Level(4, 2, "_c__", [14, 15], 15, Pos2D(-.5, 1)),
-          Level(2, 4, "_c__", [14, 15], 16, Pos2D(.5, 1))
-        ]),
+        Stage(
+            5,
+            [
+              Level(2, 2, "c_", [4, 8, 9], 9, Pos2D(0, -1)),
+              //
+              Level(2, 3, "c__", [5, 6, 10], 10, Pos2D(-.5, -.5)),
+              Level(3, 2, "c__", [5, 6, 10], 11, Pos2D(.5, -.5)),
+              //
+              Level(2, 2, "_c", [10], 12, Pos2D(0, 0)),
+              //
+              Level(2, 3, "_c_", [11, 12, 13], 13, Pos2D(-.5, .5)),
+              Level(3, 2, "_c_", [11, 12, 13], 14, Pos2D(.5, .5)),
+              //
+              Level(4, 2, "_c__", [14, 15], 15, Pos2D(-.5, 1)),
+              Level(2, 4, "_c__", [14, 15], 16, Pos2D(.5, 1))
+            ],
+            Colors.teal[200]),
         //Bloque 5: 3 sumas, sin acarreo (Level 18 - 20)
-        Stage(1, [
-          Level(3, 3, "___", [4, 5, 6], 17, Pos2D(-1, 0)),
-          Level(4, 3, "____", [4, 5, 6], 18, Pos2D(0, 0)),
-          Level(3, 4, "____", [4, 5, 6], 19, Pos2D(1, 0))
-        ]),
+        Stage(
+            1,
+            [
+              Level(3, 3, "___", [4, 5, 6], 17, Pos2D(-1, 0)),
+              Level(4, 3, "____", [4, 5, 6], 18, Pos2D(0, 0)),
+              Level(3, 4, "____", [4, 5, 6], 19, Pos2D(1, 0))
+            ],
+            Colors.teal[200]),
         //Bloque 6: 3 sumas, 1 acarreo (Level 21 - 29)
-        Stage(6, [
-          Level(3, 3, "c__", [10, 18], 20, Pos2D(0, -1)),
-          //
-          Level(4, 3, "c___", [19, 20, 21], 21, Pos2D(-.5, -.6)),
-          Level(3, 4, "c___", [19, 20, 21], 22, Pos2D(.5, -.6)),
+        Stage(
+            6,
+            [
+              Level(3, 3, "c__", [10, 18], 20, Pos2D(0, -1)),
+              //
+              Level(4, 3, "c___", [19, 20, 21], 21, Pos2D(-.5, -.6)),
+              Level(3, 4, "c___", [19, 20, 21], 22, Pos2D(.5, -.6)),
 //
-          Level(3, 3, "_c_", [10, 18], 23, Pos2D(0, -.2)),
+              Level(3, 3, "_c_", [10, 18], 23, Pos2D(0, -.2)),
 //
-          Level(4, 3, "_c__", [22, 23], 23, Pos2D(-.5, .2)),
-          Level(3, 4, "_c__", [22, 23], 25, Pos2D(.5, .2)),
+              Level(4, 3, "_c__", [22, 23], 23, Pos2D(-.5, .2)),
+              Level(3, 4, "_c__", [22, 23], 25, Pos2D(.5, .2)),
 //
-          Level(3, 3, "__c", [13, 24], 26, Pos2D(0, .6)),
+              Level(3, 3, "__c", [13, 24], 26, Pos2D(0, .6)),
 //
-          Level(4, 3, "__c_", [25, 26], 27, Pos2D(-.5, 1)),
-          Level(3, 4, "__c_", [25, 26], 28, Pos2D(.5, 1))
-        ]),
+              Level(4, 3, "__c_", [25, 26], 27, Pos2D(-.5, 1)),
+              Level(3, 4, "__c_", [25, 26], 28, Pos2D(.5, 1))
+            ],
+            Colors.blue[200]),
         //Bloque 7: 3 sumas, 2 acarreos (Level 30 - 41)
-        Stage(7, [
-          Level(2, 2, "cc", [10, 13], 29, Pos2D(0, -1)),
+        Stage(
+            7,
+            [
+              Level(2, 2, "cc", [10, 13], 29, Pos2D(0, -1)),
 //
-          Level(2, 3, "cc_", [11, 12, 14, 15], 30, Pos2D(-.5, -.66)),
-          Level(3, 2, "cc_", [11, 12, 14, 15], 31, Pos2D(.5, -.66)),
+              Level(2, 3, "cc_", [11, 12, 14, 15], 30, Pos2D(-.5, -.66)),
+              Level(3, 2, "cc_", [11, 12, 14, 15], 31, Pos2D(.5, -.66)),
 //
-          Level(3, 3, "c_c", [18, 21, 27], 32, Pos2D(0, -.33)),
+              Level(3, 3, "c_c", [18, 21, 27], 32, Pos2D(0, -.33)),
 //
-          Level(4, 3, "c_c_", [22, 23, 28, 29], 33, Pos2D(-.5, 0)),
-          Level(3, 4, "c_c_", [22, 23, 28, 29], 34, Pos2D(.5, 0)),
+              Level(4, 3, "c_c_", [22, 23, 28, 29], 33, Pos2D(-.5, 0)),
+              Level(3, 4, "c_c_", [22, 23, 28, 29], 34, Pos2D(.5, 0)),
 //
-          Level(3, 3, "_cc", [18, 24, 27], 35, Pos2D(0, .33)),
+              Level(3, 3, "_cc", [18, 24, 27], 35, Pos2D(0, .33)),
 //
-          Level(4, 3, "_cc_", [31, 32], 36, Pos2D(-1, .66)),
-          Level(3, 4, "_cc_", [31, 32], 37, Pos2D(0, .66)),
-          Level(4, 4, "cc__", [31, 32], 38, Pos2D(1, .66)),
+              Level(4, 3, "_cc_", [31, 32], 36, Pos2D(-1, .66)),
+              Level(3, 4, "_cc_", [31, 32], 37, Pos2D(0, .66)),
+              Level(4, 4, "cc__", [31, 32], 38, Pos2D(1, .66)),
 //
-          Level(4, 4, "c_c_", [31, 32], 39, Pos2D(0, 1)),
-          Level(4, 4, "_cc_", [31, 32], 40, Pos2D(0, 1))
-        ]),
+              Level(4, 4, "c_c_", [31, 32], 39, Pos2D(0, 1)),
+              Level(4, 4, "_cc_", [31, 32], 40, Pos2D(0, 1))
+            ],
+            Colors.indigo[200]),
         //Bloque 8: 3 sumas, 2 acarreos (Level 42 - 47)
-        Stage(2, [
-          Level(3, 3, "ccc", [33, 36], 41, Pos2D(-1, -1)),
-          Level(4, 3, "ccc_", [37, 38], 42, Pos2D(0, -1)),
-          Level(3, 4, "ccc_", [37, 38], 43, Pos2D(1, -1)),
-          Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1)),
-          Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1))
-        ]),
+        Stage(
+            2,
+            [
+              Level(3, 3, "ccc", [33, 36], 41, Pos2D(-1, -1)),
+              Level(4, 3, "ccc_", [37, 38], 42, Pos2D(0, -1)),
+              Level(3, 4, "ccc_", [37, 38], 43, Pos2D(1, -1)),
+              Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1)),
+              Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1))
+            ],
+            Colors.purple[200]),
         //carry del primer dígito al último
-        Stage(1, [
-          Level(4, 4, "cc_c", [39, 40, 41, 45], 46, Pos2D(0, 0))
-        ]),
+        Stage(
+            1,
+            [
+              Level(4, 4, "cc_c", [39, 40, 41, 45], 46, Pos2D(0, 0))
+            ],
+            Colors.purple[200]),
       ];
+
+  getColor(int stageIndex) {
+    return allStages[stageIndex].color;
+  }
 
   getLevel(int stageIndex, int levelIndex) =>
       allStages[stageIndex].getLevel(levelIndex);
