@@ -32,7 +32,7 @@ class DigitKeyboard extends StatelessWidget {
                       style: BorderStyle.solid,
                     )),
                 child: Style.body('$index',
-                    color: Colors.white,
+                    color: Colors.black26,
                     textAlign: TextAlign.center,
                     fontSize: 32),
               );

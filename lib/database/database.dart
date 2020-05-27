@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:juego_sumas/model/kid.dart';
 import 'package:juego_sumas/model/log.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
 
@@ -19,9 +18,12 @@ class DataBase {
     return kidRef.documentID;
   }
 
-  static Future<bool> isRegistred() async {
-    var res =
-        await firestore.collection("kids").document(UserManager.kidId).get();
+  static Future<dynamic> isRegistred() async {
+    var res = await firestore
+        .collection("kids")
+        .document(UserManager.kidId)
+        .snapshots();
     print(res);
+    return res;
   }
 }

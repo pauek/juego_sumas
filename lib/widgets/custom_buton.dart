@@ -6,6 +6,7 @@ class CustomButton extends StatelessWidget {
   final Color color;
   final Widget child;
   final bool isCircle;
+  final bool isDisabled;
 
   CustomButton({
     this.height,
@@ -13,30 +14,34 @@ class CustomButton extends StatelessWidget {
     this.color,
     this.child,
     this.isCircle,
+    this.isDisabled,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(50),
-      child: Container(
-        height: height ,
-        width: width,
-        decoration: BoxDecoration(
-          color: color,
-          shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-          borderRadius: isCircle ? null : BorderRadius.circular(50),
-          border: Border.all(
-            color: Colors.black12,
-            width: 3,
+    return Opacity(
+      opacity: isDisabled != null && isDisabled ? 0.5 : 1,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: color,
+            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+            borderRadius: isCircle ? null : BorderRadius.circular(50),
+            border: Border.all(
+              color: Colors.black12,
+              width: 5,
+            ),
           ),
+          padding: isCircle ? EdgeInsets.all(17) : EdgeInsets.all(5),
+          // margin: EdgeInsets.symmetric(
+          //   horizontal: 5,
+          //   vertical: 5,
+          // ),
+          child: child,
         ),
-        padding: isCircle ? EdgeInsets.all(17) : EdgeInsets.all(5),
-        // margin: EdgeInsets.symmetric(
-        //   horizontal: 5,
-        //   vertical: 5,
-        // ),
-        child: child,
       ),
     );
   }

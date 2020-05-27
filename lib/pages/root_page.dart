@@ -5,8 +5,7 @@ import 'package:juego_sumas/pages/code_screen.dart';
 import 'package:juego_sumas/pages/main/main_page.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
 
-
-//TODO: fix this page!!! 
+//TODO: fix this page!!!
 
 class RootPage extends StatefulWidget {
   @override
@@ -21,8 +20,11 @@ class _RootPageState extends State<RootPage> {
     // _getData();
   }
 
-  _getData() {
-    DataBase.isRegistred();
+  _getData() async {
+    // var res = await DataBase.isRegistred();
+    // print(res.snapshot.data['parent']);
+
+    // Navigator.pushReplacementNamed(context, MainPage.routeName);
   }
 
   Widget _splash() {
@@ -90,9 +92,9 @@ class _RootPageState extends State<RootPage> {
                     if (!hasParent) {
                       return CodeScreen();
                     }
-                    Container(
-                      height: 50,
-                    );
+                    // Container(
+                    //   height: 50,
+                    // );
                     // goToMainPage();
                     // break;
                     return MainPage();

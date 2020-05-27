@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:juego_sumas/model/levels.dart';
 import 'package:juego_sumas/pages/exersice/exercise_page.dart';
+import 'package:juego_sumas/utils/UserManager.dart';
 import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 
@@ -12,11 +16,20 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String userId;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    userId = UserManager.kidId;
+  }
+
   @override
   Widget build(BuildContext context) {
     final stages = Provider.of<LevelService>(context).allStages;
     return Scaffold(
-      backgroundColor: Colors.amber[100],
+      // backgroundColor: Colors.amber[100],
       body: ListView.builder(
         itemCount: stages.length,
         itemBuilder: (ctx, stageIndex) {
@@ -101,22 +114,55 @@ class LevelWidget extends StatelessWidget {
     final int levelImage = Provider.of<LevelService>(context)
         .getLevelImage(stageIndex, levelIndex);
     final bgColor = Provider.of<LevelService>(context).getColor(stageIndex);
-    return Padding(
-      padding: const EdgeInsets.all(_padding),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            ExercisePage.routeName,
-            arguments: [stageIndex, levelIndex],
+    final groupId =
+        Provider.of<LevelService>(context).getGroupId(stageIndex, levelIndex);
+    return StreamBuilder(
+      stream: Firestore.instance
+          .collection("kids")
+          .document(UserManager.kidId)
+          .collection('logs')
+          .snapshots(),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          bool isActive;
+
+          groupId == 'group1'
+              ? isActive = true
+              : isActive = snapshot.data.documents
+                  .any((doc) => doc.data['nextGroup'] == groupId);
+
+          return Padding(
+            padding: const EdgeInsets.all(_padding),
+            child: GestureDetector(
+              onTap: isActive != null && isActive
+                  ? () {
+                      Navigator.of(context).pushNamed(
+                        ExercisePage.routeName,
+                        arguments: [stageIndex, levelIndex],
+                      );
+                    }
+                  : null,
+              child: CustomButton(
+                height: size - 2 * _padding, // 2 * padding
+                width: size - 2 * _padding, // 2 * padding
+                color:
+                    isActive != null && isActive ? bgColor : Colors.grey[200],
+                isCircle: true,
+                child: getImage(levelImage),
+                isDisabled: isActive != null ? !isActive : true,
+              ),
+            ),
           );
-        },
-        child: CustomButton(
-            height: size - 2 * _padding, // 2 * padding
-            width: size - 2 * _padding, // 2 * padding
-            color: bgColor,
-            isCircle: true,
-            child: getImage(levelImage)),
-      ),
+        }
+        return CustomButton(
+                height: size - 2 * _padding, // 2 * padding
+                width: size - 2 * _padding, // 2 * padding
+                color: Colors.grey[200],
+                isCircle: true,
+                child: getImage(levelImage),
+                isDisabled: true,
+              );
+      },
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:juego_sumas/model/log.dart';
 import 'package:juego_sumas/pages/exersice/components/custom_keyboard_widget.dart';
 import 'package:juego_sumas/pages/exersice/components/operation.dart';
 import 'package:juego_sumas/pages/exersice/components/progress_bar_widget.dart';
+import 'package:juego_sumas/utils/UserManager.dart';
 import 'package:juego_sumas/utils/style.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class ExercisePage extends StatelessWidget {
     final int levelIndex = args[1];
 
     final mainColor = Provider.of<LevelService>(context).getColor(stageIndex);
+    final nextGroup = Provider.of<LevelService>(context).getNextGroup(stageIndex, levelIndex);
 
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
@@ -75,10 +77,11 @@ class ExercisePage extends StatelessWidget {
                                           if (exerciseSequence.finished) {
                                             print('finish');
                                             DataBase.sendLog(
-                                                'eYA6mXfzQf0sAnZNdnmb',
+                                                UserManager.kidId,
                                                 Log(
-                                                    levelId:
-                                                        '0', // todo: get levelID
+                                                    levelIndex: levelIndex - 1,
+                                                    stageIndex: stageIndex,
+                                                    nextGroup: nextGroup,
                                                     startTime: DateTime.now(),
                                                     endTime: DateTime.now()));
 
@@ -128,9 +131,11 @@ class ExercisePage extends StatelessWidget {
                                       if (exerciseSequence.finished) {
                                         print('finish');
                                         DataBase.sendLog(
-                                            'eYA6mXfzQf0sAnZNdnmb',
+                                            UserManager.kidId,
                                             Log(
-                                                levelId: '0',
+                                                levelIndex: levelIndex - 1,
+                                                stageIndex: stageIndex,
+                                                nextGroup: nextGroup,
                                                 startTime: DateTime.now(),
                                                 endTime: DateTime.now()));
 
