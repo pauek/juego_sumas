@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/pages/exersice/components/selectable_digit.dart';
@@ -41,6 +39,7 @@ class _OperationState extends State<Operation> {
     final top = exercise.maxedTop;
     final bottom = exercise.maxedBottom;
     final result = exercise.result;
+    final carry = exercise.carryPattern;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -58,7 +57,8 @@ class _OperationState extends State<Operation> {
               TableRow(
                 children: <Widget>[
                   Container(),
-                  for (int i = top.length - 1; i >= 0; i--) SelectableCarry(),
+                  for (int i = carry.length - 1; i >= 0; i--)
+                    carry[i] == true ? SelectableCarry() : Container(),
                 ],
               ),
               TableRow(

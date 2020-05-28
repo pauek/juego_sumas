@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -131,6 +129,8 @@ class LevelWidget extends StatelessWidget {
               : isActive = snapshot.data.documents
                   .any((doc) => doc.data['nextGroup'] == groupId);
 
+          isActive = true;
+
           return Padding(
             padding: const EdgeInsets.all(_padding),
             child: GestureDetector(
@@ -155,13 +155,13 @@ class LevelWidget extends StatelessWidget {
           );
         }
         return CustomButton(
-                height: size - 2 * _padding, // 2 * padding
-                width: size - 2 * _padding, // 2 * padding
-                color: Colors.grey[200],
-                isCircle: true,
-                child: getImage(levelImage),
-                isDisabled: true,
-              );
+          height: size - 2 * _padding, // 2 * padding
+          width: size - 2 * _padding, // 2 * padding
+          color: Colors.grey[200],
+          isCircle: true,
+          child: getImage(levelImage),
+          isDisabled: true,
+        );
       },
     );
   }

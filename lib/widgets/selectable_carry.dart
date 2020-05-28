@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:flutter/animation.dart';
 
 class SelectableCarry extends StatefulWidget {

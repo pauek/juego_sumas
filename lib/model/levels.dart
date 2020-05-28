@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:juego_sumas/model/exercise.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 
@@ -60,6 +59,7 @@ enum Pos { top, bottom, result }
 class LevelInstance {
   Level level;
   Map<Pos, Number> numbers;
+  List<bool> carry; 
 
   LevelInstance(this.level) {
     numbers = {
@@ -67,6 +67,7 @@ class LevelInstance {
       Pos.bottom: Number(level.sizeBottom),
       Pos.result: Number(level.sizeResult),
     };
+    carry = level.carry;
   }
 
   Number get top => numbers[Pos.top];
@@ -228,7 +229,7 @@ class LevelService {
             [
               Level(1, 1, "_", [0], 0, Pos2D(0, 0), 'group1'),
             ],
-            Colors.amber[100]),
+            Colors.amber[200]),
         Stage(
             2,
             [
@@ -390,14 +391,16 @@ class LevelService {
       instance.top.digits,
       instance.bottom.digits,
       instance.result.digits,
+      instance.carry
     );
   }
 
   ExerciseSequence generateExerciseSequence(int stage, int level,
       {int count = 5}) {
+    String group = getNextGroup(stage, level);
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
-      sequence.add(generateExercise(stage, level));
+      sequence.addSequence(generateExercise(stage, level), level, group);
     }
     return sequence;
   }

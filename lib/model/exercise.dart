@@ -13,12 +13,14 @@ class Exercise {
   final List<int> top;
   final List<int> bottom;
   final List<int> result;
+  final List<bool> carryPattern;
 
   Exercise(
     this.id,
     this.top,
     this.bottom,
     this.result,
+    this.carryPattern,
   );
 
   get maxLength => max(top.length, bottom.length);

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:juego_sumas/database/database.dart' as db;
+import 'package:juego_sumas/database/database.dart';
 import 'package:juego_sumas/model/exercise.dart';
+import 'package:juego_sumas/utils/UserManager.dart';
 
 import 'log.dart';
 
@@ -32,6 +33,10 @@ class ExerciseSequence with ChangeNotifier {
 
   int _progress = 0;
 
+  int errors = 0;
+
+  Log exerciseLog;
+
   int get selectedDigit => _selectedDigit;
 
   set selectedDigit(int newValue) {
@@ -48,7 +53,14 @@ class ExerciseSequence with ChangeNotifier {
     notifyListeners();
   }
 
-  add(Exercise e) => exercises.add(e);
+  addSequence(Exercise e, int level, String group) {
+    exercises.add(e);
+    exerciseLog = new Log(
+      startTime: DateTime.now(),
+      levelIndex: level,
+      nextGroup: group,
+    );
+  }
 
   Exercise get current =>
       (_current < exercises.length ? exercises[_current] : null);
@@ -61,20 +73,22 @@ class ExerciseSequence with ChangeNotifier {
 
   bool get isError => _error;
 
+  bool get isLevelDone => errors <= 3;
+
   void checkResult() {
     for (int i = 0; i < current.result.length; i++) {
       if (current.result[i] != number[i]) {
-        // return false;
         _correct = false;
         _error = true;
+        errors++;
         break;
       } else {
-        _progress++;
         _correct = true;
+        _error = false;
       }
     }
+    _progress++;
     notifyListeners();
-    // return true;
   }
 
   void next() {
@@ -83,9 +97,15 @@ class ExerciseSequence with ChangeNotifier {
       _selectedDigit = 0;
       number = List<int>.generate(10, (i) => -1);
       _correct = false;
+      _error = false;
       notifyListeners();
-    } else {
-    
-    }
+    } else {}
+  }
+
+  void submitData() {
+    exerciseLog.endTime = DateTime.now();
+    exerciseLog.didWin = errors > 3;
+
+    DataBase.sendLog(UserManager.kidId, exerciseLog);
   }
 }

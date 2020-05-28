@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:juego_sumas/utils/style.dart';
-import 'package:juego_sumas/widgets/custom_buton.dart';
 import 'package:provider/provider.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 

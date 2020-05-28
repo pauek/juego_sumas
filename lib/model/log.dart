@@ -7,6 +7,7 @@ class Log {
   DateTime startTime;
   DateTime endTime;
   String nextGroup;
+  bool didWin;
 
   Log({
     this.levelIndex,
@@ -14,6 +15,7 @@ class Log {
     this.startTime,
     this.endTime,
     this.nextGroup,
+    this.didWin,
   });
 
   Log.fromFirestore(DocumentSnapshot doc)
@@ -21,7 +23,8 @@ class Log {
         endTime = (doc.data['endTime'] as Timestamp).toDate(),
         levelIndex = doc.data['levelIndex'],
         stageIndex = doc.data['stageIndex'],
-        nextGroup = doc.data['nextGroup'];
+        nextGroup = doc.data['nextGroup'],
+        didWin = doc.data['didWin'];
 
   Map<String, dynamic> toFirestore() => {
         'levelIndex': levelIndex,
@@ -29,6 +32,7 @@ class Log {
         'startTime': startTime,
         'endTime': endTime,
         'nextGroup': nextGroup,
+        'didWin': didWin,
       };
 }
 

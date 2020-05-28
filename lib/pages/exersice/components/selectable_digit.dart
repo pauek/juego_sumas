@@ -11,8 +11,7 @@ class SelectableDigit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final seq = Provider.of<ExerciseSequence>(context);
-    final color =
-        (seq.selectedDigit == index ? currentColor : Colors.white);
+    final color = (seq.selectedDigit == index ? currentColor : Colors.white);
     return GestureDetector(
       onTap: () {
         seq.selectedDigit = index;
@@ -32,17 +31,16 @@ class SelectableDigit extends StatelessWidget {
                       ? EdgeInsets.symmetric(horizontal: 7.5, vertical: 5)
                       : EdgeInsets.only(right: 3, left: 3),
                   decoration: BoxDecoration(
-                    color: color,
+                    // color: color,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
-                    border: Border.all(color: Colors.black12, width: 3),
+                    border: Border.all(color: color, width: 5),
                   ),
                   child: Text(
                     (seq.number[index] == -1 ? ' ' : '${seq.number[index]}'),
                     style: TextStyle(
-                      fontSize: 76,
-                      color: Colors.black.withOpacity(0.8),
-                      height: 1.4
-                    ),
+                        fontSize: 76,
+                        color: Colors.black.withOpacity(0.8),
+                        height: 1.4),
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -20,9 +20,11 @@ class _WinScreenState extends State<WinScreen> {
   var instance = Fluttie();
 
   bool ready = false;
+  String rewardText = ''; 
 
   prepareAnimations() async {
     bool canBeUsed = await Fluttie.isAvailable();
+    String text; 
     if (!canBeUsed) {
       print("Animations are not supported on this platform");
       return;
@@ -31,9 +33,11 @@ class _WinScreenState extends State<WinScreen> {
     if (widget.didWin) {
       animation = await instance
           .loadAnimationFromAsset("assets/animations/win_animation1.json");
+          text = "¡Bien hecho! Has superado el nivel"; 
     } else {
       animation  = await instance
         .loadAnimationFromAsset("assets/animations/lose_animation1.json");
+        text = "No has superado el nivel, intantalo de nuevo"; 
     }
 
     winAnimation = await instance.prepareAnimation(
@@ -45,6 +49,7 @@ class _WinScreenState extends State<WinScreen> {
 
     if (mounted) {
       setState(() {
+        rewardText = text;
         ready = true;
         winAnimation.start();
       });
@@ -77,7 +82,7 @@ class _WinScreenState extends State<WinScreen> {
                     height: 450,
                     width: 600,
                     child: FluttieAnimation(winAnimation))),
-            Style.body("¡Bien hecho! Has superado el nivel", fontSize: 22),
+            Style.body(rewardText, fontSize: 22),
           ]),
     );
   }

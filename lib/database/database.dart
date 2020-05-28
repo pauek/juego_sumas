@@ -19,7 +19,7 @@ class DataBase {
   }
 
   static Future<dynamic> isRegistred() async {
-    var res = await firestore
+    var res = firestore
         .collection("kids")
         .document(UserManager.kidId)
         .snapshots();

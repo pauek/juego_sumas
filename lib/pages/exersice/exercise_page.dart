@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/database/database.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:juego_sumas/model/levels.dart';
-import 'package:juego_sumas/model/log.dart';
 import 'package:juego_sumas/pages/exersice/components/custom_keyboard_widget.dart';
 import 'package:juego_sumas/pages/exersice/components/operation.dart';
 import 'package:juego_sumas/pages/exersice/components/progress_bar_widget.dart';
-import 'package:juego_sumas/utils/UserManager.dart';
 import 'package:juego_sumas/utils/style.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +19,7 @@ class ExercisePage extends StatelessWidget {
     final int levelIndex = args[1];
 
     final mainColor = Provider.of<LevelService>(context).getColor(stageIndex);
-    final nextGroup = Provider.of<LevelService>(context).getNextGroup(stageIndex, levelIndex);
-
+    
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
           .generateExerciseSequence(stageIndex, levelIndex, count: 2),
@@ -75,22 +71,14 @@ class ExercisePage extends StatelessWidget {
                                         height: 50,
                                         child: Style.button("SIGUIENTE", () {
                                           if (exerciseSequence.finished) {
-                                            print('finish');
-                                            DataBase.sendLog(
-                                                UserManager.kidId,
-                                                Log(
-                                                    levelIndex: levelIndex - 1,
-                                                    stageIndex: stageIndex,
-                                                    nextGroup: nextGroup,
-                                                    startTime: DateTime.now(),
-                                                    endTime: DateTime.now()));
-
+                                            exerciseSequence.submitData();
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       WinScreen(
-                                                        didWin: false,
+                                                        didWin: exerciseSequence
+                                                            .isLevelDone,
                                                       )),
                                             );
                                           } else {
@@ -129,21 +117,13 @@ class ExercisePage extends StatelessWidget {
                                     height: 50,
                                     child: Style.button("SIGUIENTE", () {
                                       if (exerciseSequence.finished) {
-                                        print('finish');
-                                        DataBase.sendLog(
-                                            UserManager.kidId,
-                                            Log(
-                                                levelIndex: levelIndex - 1,
-                                                stageIndex: stageIndex,
-                                                nextGroup: nextGroup,
-                                                startTime: DateTime.now(),
-                                                endTime: DateTime.now()));
-
+                                        exerciseSequence.submitData();
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => WinScreen(
-                                                    didWin: false,
+                                                    didWin: exerciseSequence
+                                                        .isLevelDone,
                                                   )),
                                         );
                                       } else {
@@ -165,4 +145,5 @@ class ExercisePage extends StatelessWidget {
       ),
     );
   }
+
 }
