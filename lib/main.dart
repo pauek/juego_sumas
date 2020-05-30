@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Juego sumas',
-        theme: ThemeData(fontFamily: 'Baloo'),
+        theme: ThemeData(
+          fontFamily: 'Baloo',
+          brightness: Brightness.light,
+          primaryColor: Colors.amber[100],
+          primarySwatch: Colors.amber,
+        ),
         home: RootPage(),
         routes: {
           ExercisePage.routeName: (ctx) => ExercisePage(),

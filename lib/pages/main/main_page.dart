@@ -129,13 +129,15 @@ class LevelWidget extends StatelessWidget {
               : isActive = snapshot.data.documents
                   .any((doc) => doc.data['nextGroup'] == groupId);
 
-          isActive = true;
+          //TODO: Delete this!
+          // isActive = true;
 
           return Padding(
             padding: const EdgeInsets.all(_padding),
             child: GestureDetector(
               onTap: isActive != null && isActive
                   ? () {
+                    print(stageIndex);
                       Navigator.of(context).pushNamed(
                         ExercisePage.routeName,
                         arguments: [stageIndex, levelIndex],

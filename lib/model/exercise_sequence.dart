@@ -22,19 +22,13 @@ generi exercicis i els vas afegint a una seqüència)
 class ExerciseSequence with ChangeNotifier {
   List<Exercise> exercises = [];
   int _current = 0;
-
   List<int> number = List<int>.generate(10, (i) => -1);
-
+  List<bool> usedCarry = List<bool>.generate(10, (index) => false);
   int _selectedDigit = 0;
-
   bool _correct = false;
-
   bool _error = false;
-
   int _progress = 0;
-
   int errors = 0;
-
   Log exerciseLog;
 
   int get selectedDigit => _selectedDigit;
@@ -46,11 +40,16 @@ class ExerciseSequence with ChangeNotifier {
 
   void setDigit(int value) {
     number[_selectedDigit] = value;
-    // _selectedDigit++;
+    _selectedDigit++;
     if (_selectedDigit >= current.result.length) {
       _selectedDigit = 0;
     }
     notifyListeners();
+  }
+
+  void setCarry(isActive){
+    usedCarry[_selectedDigit] = isActive;
+    notifyListeners(); 
   }
 
   addSequence(Exercise e, int level, String group) {
@@ -105,7 +104,6 @@ class ExerciseSequence with ChangeNotifier {
   void submitData() {
     exerciseLog.endTime = DateTime.now();
     exerciseLog.didWin = errors > 3;
-
     DataBase.sendLog(UserManager.kidId, exerciseLog);
   }
 }

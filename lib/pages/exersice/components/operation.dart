@@ -38,8 +38,8 @@ class _OperationState extends State<Operation> {
 
     final top = exercise.maxedTop;
     final bottom = exercise.maxedBottom;
-    final result = exercise.result;
-    final carry = exercise.carryPattern;
+    final result = exercise.maxedResult;
+    final carry = exercise.maxedCarry;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -56,9 +56,11 @@ class _OperationState extends State<Operation> {
             children: [
               TableRow(
                 children: <Widget>[
-                  Container(),
                   for (int i = carry.length - 1; i >= 0; i--)
-                    carry[i] == true ? SelectableCarry() : Container(),
+                    carry[i] == true
+                        ? SelectableCarry(widget.currentColor, i)
+                        : Container(),
+                  Container(),
                 ],
               ),
               TableRow(

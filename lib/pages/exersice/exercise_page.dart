@@ -22,7 +22,7 @@ class ExercisePage extends StatelessWidget {
     
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
-          .generateExerciseSequence(stageIndex, levelIndex, count: 2),
+          .generateExerciseSequence(stageIndex, levelIndex),
       child: Scaffold(
         body: SafeArea(
           child: Column(
@@ -72,7 +72,7 @@ class ExercisePage extends StatelessWidget {
                                         child: Style.button("SIGUIENTE", () {
                                           if (exerciseSequence.finished) {
                                             exerciseSequence.submitData();
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
@@ -118,7 +118,7 @@ class ExercisePage extends StatelessWidget {
                                     child: Style.button("SIGUIENTE", () {
                                       if (exerciseSequence.finished) {
                                         exerciseSequence.submitData();
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => WinScreen(

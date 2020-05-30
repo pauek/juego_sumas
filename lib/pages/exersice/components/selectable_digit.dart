@@ -12,6 +12,7 @@ class SelectableDigit extends StatelessWidget {
   Widget build(BuildContext context) {
     final seq = Provider.of<ExerciseSequence>(context);
     final color = (seq.selectedDigit == index ? currentColor : Colors.white);
+    final height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         seq.selectedDigit = index;
@@ -20,15 +21,15 @@ class SelectableDigit extends StatelessWidget {
           ? Container(
               margin: EdgeInsets.only(top: 5),
               width: 60,
-              height: 110,
+              height: height * 0.13,
               child: Center(
                 child: AnimatedContainer(
                   alignment: Alignment.center,
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
-                  width: seq.selectedDigit == index ? 60 : 45,
+                  width: 60,
                   padding: seq.selectedDigit == index
-                      ? EdgeInsets.symmetric(horizontal: 7.5, vertical: 5)
+                      ? EdgeInsets.symmetric(horizontal: 5, vertical: 5)
                       : EdgeInsets.only(right: 3, left: 3),
                   decoration: BoxDecoration(
                     // color: color,
@@ -40,16 +41,17 @@ class SelectableDigit extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 76,
                         color: Colors.black.withOpacity(0.8),
-                        height: 1.4),
+                        height: 1.2),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
             )
           : Container(
-              margin: EdgeInsets.only(right: 5),
+              margin: EdgeInsets.only(right: 5, top: 5),
               width: 60,
-              height: 110,
+              height: height * 0.13,
+              padding: EdgeInsets.symmetric(vertical: 5),
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.amber[200], width: 5),
@@ -60,6 +62,7 @@ class SelectableDigit extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 76,
                   color: Colors.black.withOpacity(0.8),
+                  height: 1.3
                 ),
                 textAlign: TextAlign.center,
               ),

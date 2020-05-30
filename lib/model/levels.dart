@@ -59,7 +59,7 @@ enum Pos { top, bottom, result }
 class LevelInstance {
   Level level;
   Map<Pos, Number> numbers;
-  List<bool> carry; 
+  List<bool> carry;
 
   LevelInstance(this.level) {
     numbers = {
@@ -256,91 +256,91 @@ class LevelService {
             [
               Level(2, 2, "c_", [4, 8, 9], 9, Pos2D(0, -1), 'group5'),
               //
-              Level(2, 3, "c__", [5, 6, 10], 10, Pos2D(-.5, -.5), 'group5'),
-              Level(3, 2, "c__", [5, 6, 10], 11, Pos2D(.5, -.5), 'group5'),
+              Level(2, 3, "c__", [5, 6, 10], 10, Pos2D(-.5, -.5), 'group6'),
+              Level(3, 2, "c__", [5, 6, 10], 11, Pos2D(.5, -.5), 'group6'),
               //
-              Level(2, 2, "_c", [10], 12, Pos2D(0, 0), 'group6'),
+              Level(2, 2, "_c", [10], 12, Pos2D(0, 0), 'group7'),
               //
-              Level(2, 3, "_c_", [11, 12, 13], 13, Pos2D(-.5, .5), 'group7'),
-              Level(3, 2, "_c_", [11, 12, 13], 14, Pos2D(.5, .5), 'group7'),
+              Level(2, 3, "_c_", [11, 12, 13], 13, Pos2D(-.5, .5), 'group8'),
+              Level(3, 2, "_c_", [11, 12, 13], 14, Pos2D(.5, .5), 'group8'),
               //
-              Level(4, 2, "_c__", [14, 15], 15, Pos2D(-.5, 1), 'group8'),
-              Level(2, 4, "_c__", [14, 15], 16, Pos2D(.5, 1), 'group8')
+              Level(4, 2, "_c__", [14, 15], 15, Pos2D(-.5, 1), 'group9'),
+              Level(2, 4, "_c__", [14, 15], 16, Pos2D(.5, 1), 'group9')
             ],
             Colors.teal[200]),
         //Bloque 5: 3 sumas, sin acarreo (Level 18 - 20)
         Stage(
             1,
             [
-              Level(3, 3, "___", [4, 5, 6], 17, Pos2D(-1, 0), 'group9'),
-              Level(4, 3, "____", [4, 5, 6], 18, Pos2D(0, 0), 'group9'),
-              Level(3, 4, "____", [4, 5, 6], 19, Pos2D(1, 0), 'group9')
+              Level(3, 3, "___", [4, 5, 6], 17, Pos2D(-1, 0), 'group10'),
+              Level(4, 3, "____", [4, 5, 6], 18, Pos2D(0, 0), 'group10'),
+              Level(3, 4, "____", [4, 5, 6], 19, Pos2D(1, 0), 'group10')
             ],
             Colors.teal[200]),
         //Bloque 6: 3 sumas, 1 acarreo (Level 21 - 29)
         Stage(
             6,
             [
-              Level(3, 3, "c__", [10, 18], 20, Pos2D(0, -1), 'group10'),
+              Level(3, 3, "c__", [10, 18], 20, Pos2D(0, -1), 'group11'),
               //
-              Level(4, 3, "c___", [19, 20, 21], 21, Pos2D(-.5, -.6), 'group11'),
-              Level(3, 4, "c___", [19, 20, 21], 22, Pos2D(.5, -.6), 'group11'),
+              Level(4, 3, "c___", [19, 20, 21], 21, Pos2D(-.5, -.6), 'group12'),
+              Level(3, 4, "c___", [19, 20, 21], 22, Pos2D(.5, -.6), 'group12'),
 //
-              Level(3, 3, "_c_", [10, 18], 23, Pos2D(0, -.2), 'group12'),
+              Level(3, 3, "_c_", [10, 18], 23, Pos2D(0, -.2), 'group13'),
 //
-              Level(4, 3, "_c__", [22, 23], 23, Pos2D(-.5, .2), 'group13'),
-              Level(3, 4, "_c__", [22, 23], 25, Pos2D(.5, .2), 'group13'),
+              Level(4, 3, "_c__", [22, 23], 23, Pos2D(-.5, .2), 'group14'),
+              Level(3, 4, "_c__", [22, 23], 25, Pos2D(.5, .2), 'group14'),
 //
-              Level(3, 3, "__c", [13, 24], 26, Pos2D(0, .6), 'group14'),
+              Level(3, 3, "__c", [13, 24], 26, Pos2D(0, .6), 'group15'),
 //
-              Level(4, 3, "__c_", [25, 26], 27, Pos2D(-.5, 1), 'group15'),
-              Level(3, 4, "__c_", [25, 26], 28, Pos2D(.5, 1), 'group15')
+              Level(4, 3, "__c_", [25, 26], 27, Pos2D(-.5, 1), 'group16'),
+              Level(3, 4, "__c_", [25, 26], 28, Pos2D(.5, 1), 'group16')
             ],
-            Colors.blue[200]),
+            Colors.lightBlue[200]),
         //Bloque 7: 3 sumas, 2 acarreos (Level 30 - 41)
         Stage(
             7,
             [
-              Level(2, 2, "cc", [10, 13], 29, Pos2D(0, -1), 'group16'),
+              Level(2, 2, "cc", [10, 13], 29, Pos2D(0, -1), 'group17'),
 //
               Level(2, 3, "cc_", [11, 12, 14, 15], 30, Pos2D(-.5, -.66),
-                  'group17'),
+                  'group18'),
               Level(
-                  3, 2, "cc_", [11, 12, 14, 15], 31, Pos2D(.5, -.66), 'grou17'),
+                  3, 2, "cc_", [11, 12, 14, 15], 31, Pos2D(.5, -.66), 'grou18'),
 //
-              Level(3, 3, "c_c", [18, 21, 27], 32, Pos2D(0, -.33), 'group18'),
+              Level(3, 3, "c_c", [18, 21, 27], 32, Pos2D(0, -.33), 'group19'),
 //
               Level(
-                  4, 3, "c_c_", [22, 23, 28, 29], 33, Pos2D(-.5, 0), 'group19'),
+                  4, 3, "c_c_", [22, 23, 28, 29], 33, Pos2D(-.5, 0), 'group20'),
               Level(
-                  3, 4, "c_c_", [22, 23, 28, 29], 34, Pos2D(.5, 0), 'group19'),
+                  3, 4, "c_c_", [22, 23, 28, 29], 34, Pos2D(.5, 0), 'group20'),
 //
-              Level(3, 3, "_cc", [18, 24, 27], 35, Pos2D(0, .33), 'group20'),
+              Level(3, 3, "_cc", [18, 24, 27], 35, Pos2D(0, .33), 'group21'),
 //
-              Level(4, 3, "_cc_", [31, 32], 36, Pos2D(-1, .66), 'group21'),
-              Level(3, 4, "_cc_", [31, 32], 37, Pos2D(0, .66), 'group21'),
-              Level(4, 4, "cc__", [31, 32], 38, Pos2D(1, .66), 'group21'),
+              Level(4, 3, "_cc_", [31, 32], 36, Pos2D(-1, .66), 'group22'),
+              Level(3, 4, "_cc_", [31, 32], 37, Pos2D(0, .66), 'group22'),
+              Level(4, 4, "cc__", [31, 32], 38, Pos2D(1, .66), 'group22'),
 //
-              Level(4, 4, "c_c_", [31, 32], 39, Pos2D(0, 1), 'group22'),
-              Level(4, 4, "_cc_", [31, 32], 40, Pos2D(0, 1), 'group22')
+              Level(4, 4, "c_c_", [31, 32], 39, Pos2D(0, 1), 'group23'),
+              Level(4, 4, "_cc_", [31, 32], 40, Pos2D(0, 1), 'group23')
             ],
             Colors.indigo[200]),
         //Bloque 8: 3 sumas, 2 acarreos (Level 42 - 47)
         Stage(
             2,
             [
-              Level(3, 3, "ccc", [33, 36], 41, Pos2D(-1, -1), 'group23'),
-              Level(4, 3, "ccc_", [37, 38], 42, Pos2D(0, -1), 'group23'),
-              Level(3, 4, "ccc_", [37, 38], 43, Pos2D(1, -1), 'group23'),
-              Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1), 'group24'),
-              Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1), 'group24')
+              Level(3, 3, "ccc", [33, 36], 41, Pos2D(-1, -1), 'group24'),
+              Level(4, 3, "ccc_", [37, 38], 42, Pos2D(0, -1), 'group24'),
+              Level(3, 4, "ccc_", [37, 38], 43, Pos2D(1, -1), 'group24'),
+              Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1), 'group25'),
+              Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1), 'group25')
             ],
             Colors.purple[200]),
         //carry del primer dígito al último
         Stage(
             1,
             [
-              Level(4, 4, "cc_c", [39, 40, 41, 45], 46, Pos2D(0, 0), 'group25')
+              Level(4, 4, "cc_c", [39, 40, 41, 45], 46, Pos2D(0, 0), 'group26')
             ],
             Colors.purple[200]),
       ];
@@ -386,18 +386,15 @@ class LevelService {
   Exercise generateExercise(int stage, int level) {
     LevelInstance instance = LevelInstance(allStages[stage].getLevel(level));
     instance._generateColumns();
-    return Exercise(
-      '${DateTime.now().toString()}',
-      instance.top.digits,
-      instance.bottom.digits,
-      instance.result.digits,
-      instance.carry
-    );
+    return Exercise('${DateTime.now().toString()}', instance.top.digits,
+        instance.bottom.digits, instance.result.digits, instance.carry);
   }
 
   ExerciseSequence generateExerciseSequence(int stage, int level,
       {int count = 5}) {
-    String group = getNextGroup(stage, level);
+    String group;
+    stage == 8 ? group = null : group = getNextGroup(stage, level);
+
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
       sequence.addSequence(generateExercise(stage, level), level, group);
