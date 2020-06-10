@@ -47,9 +47,9 @@ class ExerciseSequence with ChangeNotifier {
     notifyListeners();
   }
 
-  void setCarry(isActive){
+  void setCarry(isActive) {
     usedCarry[_selectedDigit] = isActive;
-    notifyListeners(); 
+    notifyListeners();
   }
 
   addSequence(Exercise e, int level, String group) {
@@ -95,6 +95,7 @@ class ExerciseSequence with ChangeNotifier {
       _current++;
       _selectedDigit = 0;
       number = List<int>.generate(10, (i) => -1);
+      usedCarry = List<bool>.generate(10, (i) => false);
       _correct = false;
       _error = false;
       notifyListeners();

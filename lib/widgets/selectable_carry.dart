@@ -3,16 +3,10 @@ import 'package:flutter/animation.dart';
 import 'package:juego_sumas/model/exercise_sequence.dart';
 import 'package:provider/provider.dart';
 
-class SelectableCarry extends StatefulWidget {
+class SelectableCarry extends StatelessWidget {
   final Color currentColor;
   final int index;
   SelectableCarry(this.currentColor, this.index);
-  @override
-  _SelectableCarryState createState() => _SelectableCarryState();
-}
-
-class _SelectableCarryState extends State<SelectableCarry> {
-  bool carry = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +14,7 @@ class _SelectableCarryState extends State<SelectableCarry> {
 
     return GestureDetector(
       onTap: () {
-        seq.setCarry(!carry); // TODO: fix this part! 
-        setState(() {
-          carry = !carry;
-        });
+        seq.setCarry(!seq.usedCarry[index]);
       },
       child: Align(
         child: AnimatedContainer(
@@ -35,16 +26,16 @@ class _SelectableCarryState extends State<SelectableCarry> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(25)),
             border: Border.all(
-              color: (seq.selectedDigit != widget.index
+              color: (seq.selectedDigit != index
                   ? Colors.amber[100]
-                  : widget.currentColor),
+                  : currentColor),
               width: 4,
             ),
             // color: (carry ? Colors.amber[100] : Colors.white),
           ),
           child: Center(
             child: Text(
-              (seq.usedCarry[seq.selectedDigit] ? '1' : ''),
+              (seq.usedCarry[index] ? '1' : ''),
               style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w500,
