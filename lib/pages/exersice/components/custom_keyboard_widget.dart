@@ -11,7 +11,7 @@ class DigitKeyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final exerciseSequence = Provider.of<ExerciseSequence>(context);
 
-    return !exerciseSequence.isCorrect
+    return !exerciseSequence.isCorrect && !exerciseSequence.isError
         ? GridView.count(
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 5,

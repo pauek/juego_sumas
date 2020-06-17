@@ -19,7 +19,7 @@ class ExercisePage extends StatelessWidget {
     final int levelIndex = args[1];
 
     final mainColor = Provider.of<LevelService>(context).getColor(stageIndex);
-    
+
     return ChangeNotifierProvider<ExerciseSequence>(
       builder: (context) => Provider.of<LevelService>(context, listen: false)
           .generateExerciseSequence(stageIndex, levelIndex),
@@ -44,76 +44,46 @@ class ExercisePage extends StatelessWidget {
               ),
               Expanded(
                 flex: 15,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Consumer<ExerciseSequence>(
-                        builder: (context, exerciseSequence, child) {
-                      return !exerciseSequence.isError
-                          ? exerciseSequence.isCorrect
-                              ? Container(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green[100],
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      )),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      Style.body("¡Bien hecho!",
-                                          textAlign: TextAlign.center,
-                                          color: Colors.black26),
-                                      Container(
-                                        height: 50,
-                                        child: Style.button("SIGUIENTE", () {
-                                          if (exerciseSequence.finished) {
-                                            exerciseSequence.submitData();
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      WinScreen(
-                                                        didWin: exerciseSequence
-                                                            .isLevelDone,
-                                                      )),
-                                            );
-                                          } else {
-                                            print('next');
-                                            exerciseSequence.next();
-                                          }
-                                        }, color: Colors.green[200]),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Container(
-                                  margin: EdgeInsets.only(bottom: 12),
-                                  height: 50,
-                                  child: Style.button("COMPROBAR", () {
-                                    exerciseSequence.checkResult();
-                                  }, color: Colors.amber[200]),
-                                )
-                          : Container(
-                              height: double.infinity,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.red[100],
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                  )),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Style.body("Error, sigue intentandolo!",
-                                      textAlign: TextAlign.center,
-                                      color: Colors.black26),
-                                  Container(
+                child: Consumer<ExerciseSequence>(
+                    builder: (context, exerciseSequence, child) {
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: <Widget>[
+                      AnimatedContainer(
+                        curve: Curves.easeIn,
+                        duration: Duration(milliseconds: 900),
+                        height: exerciseSequence.isError ||
+                                exerciseSequence.isCorrect
+                            ? 500
+                            : 0,
+                        width: double.infinity,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: !exerciseSequence.isError
+                                  ? exerciseSequence.isCorrect
+                                      ? Colors.green[100]
+                                      : Colors.transparent
+                                  : Colors.red[100],
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15),
+                              )),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Style.body(
+                                _getText(exerciseSequence.isError,
+                                    exerciseSequence.isCorrect),
+                                textAlign: TextAlign.center,
+                                color: Colors.black26),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                        child: !exerciseSequence.isError
+                            ? exerciseSequence.isCorrect
+                                ? Container(
                                     height: 50,
                                     child: Style.button("SIGUIENTE", () {
                                       if (exerciseSequence.finished) {
@@ -130,14 +100,37 @@ class ExercisePage extends StatelessWidget {
                                         print('next');
                                         exerciseSequence.next();
                                       }
-                                    }, color: Colors.red[200]),
-                                  ),
-                                ],
+                                    }, color: Colors.green[200]),
+                                  )
+                                : Container(
+                                    height: 50,
+                                    child: Style.button("COMPROBAR", () {
+                                      exerciseSequence.checkResult();
+                                    }, color: Colors.amber[200]),
+                                  )
+                            : Container(
+                                height: 50,
+                                child: Style.button("SIGUIENTE", () {
+                                  if (exerciseSequence.finished) {
+                                    exerciseSequence.submitData();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => WinScreen(
+                                                didWin: exerciseSequence
+                                                    .isLevelDone,
+                                              )),
+                                    );
+                                  } else {
+                                    print('next');
+                                    exerciseSequence.next();
+                                  }
+                                }, color: Colors.red[200]),
                               ),
-                            );
-                    })
-                  ],
-                ),
+                      ),
+                    ],
+                  );
+                }),
               ),
             ],
           ),
@@ -146,4 +139,13 @@ class ExercisePage extends StatelessWidget {
     );
   }
 
+  _getText(isError, isCorrect) {
+    if (!isCorrect && isError) {
+      return "Error, sigue intentandolo!";
+    }
+    if (isCorrect && !isError) {
+      return "¡Bien hecho!";
+    }
+    return '';
+  }
 }
