@@ -397,7 +397,7 @@ class LevelService {
 
     ExerciseSequence sequence = ExerciseSequence();
     for (int i = 0; i < count; i++) {
-      sequence.addSequence(generateExercise(stage, level), level, group);
+      sequence.addSequence(generateExercise(stage, level), level, stage, group);
     }
     return sequence;
   }

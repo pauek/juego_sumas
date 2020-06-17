@@ -50,7 +50,7 @@ class ExercisePage extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     children: <Widget>[
                       AnimatedContainer(
-                        curve: Curves.easeIn,
+                        curve: Curves.linear,
                         duration: Duration(milliseconds: 900),
                         height: exerciseSequence.isError ||
                                 exerciseSequence.isCorrect

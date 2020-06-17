@@ -52,11 +52,12 @@ class ExerciseSequence with ChangeNotifier {
     notifyListeners();
   }
 
-  addSequence(Exercise e, int level, String group) {
+  addSequence(Exercise e, int level, int stage, String group) {
     exercises.add(e);
     exerciseLog = new Log(
       startTime: DateTime.now(),
       levelIndex: level,
+      stageIndex: stage,
       nextGroup: group,
     );
   }
@@ -104,7 +105,8 @@ class ExerciseSequence with ChangeNotifier {
 
   void submitData() {
     exerciseLog.endTime = DateTime.now();
-    exerciseLog.didWin = errors > 3;
+    exerciseLog.didWin = errors < 3;
+    exerciseLog.mistakes = errors;
     DataBase.sendLog(UserManager.kidId, exerciseLog);
   }
 }

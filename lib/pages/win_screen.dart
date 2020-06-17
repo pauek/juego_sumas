@@ -59,7 +59,7 @@ class _WinScreenState extends State<WinScreen> {
   @override
   void initState() {
     Timer(Duration(seconds: 3),
-        () => Navigator.of(context).pushReplacementNamed(MainPage.routeName));
+        () => Navigator.of(context).popUntil((r) => r.isFirst));
     super.initState();
     prepareAnimations();
   }

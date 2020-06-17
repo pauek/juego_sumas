@@ -17,7 +17,7 @@ class SelectableDigit extends StatelessWidget {
       onTap: () {
         seq.selectedDigit = index;
       },
-      child: seq.selectedDigit == index
+      child: seq.selectedDigit == index && !seq.isError && !seq.isCorrect
           ? Container(
               margin: EdgeInsets.only(top: 5),
               width: 60,
