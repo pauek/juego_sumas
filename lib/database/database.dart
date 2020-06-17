@@ -9,20 +9,23 @@ class DataBase {
   }
 
   static Future<String> createUser() async {
-    DocumentReference kidRef = firestore.collection("kids").document();
+    try {
+      DocumentReference kidRef = firestore.collection("kids").document();
 
-    // Kid kid = new Kid(createdAt: DateTime.now());
-    await kidRef.setData({
-      "createdAt": DateTime.now(),
-    });
-    return kidRef.documentID;
+      // Kid kid = new Kid(createdAt: DateTime.now());
+      await kidRef.setData({
+        "createdAt": DateTime.now(),
+        'parent': '',
+      });
+      return kidRef.documentID;
+    } catch (e) {
+      print(e);
+    }
   }
 
   static Future<dynamic> isRegistred() async {
-    var res = firestore
-        .collection("kids")
-        .document(UserManager.kidId)
-        .snapshots();
+    var res =
+        firestore.collection("kids").document(UserManager.kidId).snapshots();
     print(res);
     return res;
   }

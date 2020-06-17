@@ -88,7 +88,7 @@ class _RootPageState extends State<RootPage> {
                 }
                 switch (snapshot.connectionState) {
                   case ConnectionState.active:
-                    final bool hasParent = snapshot.data.data['parent'] != null;
+                    final bool hasParent = snapshot.data.data['parent'] != null &&  snapshot.data.data['parent'] != '';
                     if (!hasParent) {
                       return CodeScreen();
                     }

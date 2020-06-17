@@ -17,7 +17,6 @@ class _MainPageState extends State<MainPage> {
   String userId;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     userId = UserManager.kidId;
@@ -27,11 +26,42 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final stages = Provider.of<LevelService>(context).allStages;
     return Scaffold(
-      // backgroundColor: Colors.amber[100],
       body: ListView.builder(
         itemCount: stages.length,
         itemBuilder: (ctx, stageIndex) {
-          return StageWidget(stageIndex);
+          return Column(
+            children: <Widget>[
+              StageWidget(stageIndex),
+              stageIndex == (stages.length - 1)
+                  ? Container()
+                  : stages[stageIndex].color != stages[stageIndex + 1].color
+                      ? Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 25),
+                          child: Row(
+                            children: <Widget>[
+                              // SizedBox(
+                              //   width: 60,
+                              // ),
+                              Expanded(
+                                child: Divider(
+                                  thickness: 3,
+                                ),
+                              ),
+                              // SizedBox(
+                              //   width: 20,
+                              // ),
+                              // Expanded(
+                              //   child: Divider(
+                              //     thickness: 3,
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                        )
+                      : Container()
+            ],
+          );
         },
       ),
     );
@@ -74,7 +104,7 @@ class LevelWidget extends StatelessWidget {
   final int stageIndex, levelIndex;
   LevelWidget(this.levelIndex, this.stageIndex);
 
-  Widget getImage(int type) {
+  Widget getImage(int type, bool isOk) {
     String src;
     double rotate;
     switch (type) {
@@ -101,7 +131,9 @@ class LevelWidget extends StatelessWidget {
       child: SvgPicture.asset(
         src,
         fit: BoxFit.contain,
-        color: Colors.white70,
+        color: isOk
+            ? Colors.white.withOpacity(0.85)
+            : Colors.black.withOpacity(0.06),
       ),
     );
   }
@@ -123,11 +155,22 @@ class LevelWidget extends StatelessWidget {
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           bool isActive;
+          bool isDone = false;
 
           groupId == 'group1'
               ? isActive = true
               : isActive = snapshot.data.documents
                   .any((doc) => doc.data['nextGroup'] == groupId);
+
+          if (isActive) {
+            int i = snapshot.data.documents.indexWhere((doc) =>
+                doc.data['stageIndex'] == stageIndex &&
+                doc.data['levelIndex'] == levelIndex);
+            if (i != -1) {
+              isDone = snapshot.data.documents[i]['didWin'];
+              if (isDone == null) isDone = false;
+            }
+          }
 
           //TODO: Delete this!
           // isActive = true;
@@ -137,7 +180,7 @@ class LevelWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: isActive != null && isActive
                   ? () {
-                    print(stageIndex);
+                      print(stageIndex);
                       Navigator.of(context).pushNamed(
                         ExercisePage.routeName,
                         arguments: [stageIndex, levelIndex],
@@ -147,10 +190,11 @@ class LevelWidget extends StatelessWidget {
               child: CustomButton(
                 height: size - 2 * _padding, // 2 * padding
                 width: size - 2 * _padding, // 2 * padding
-                color:
-                    isActive != null && isActive ? bgColor : Colors.grey[200],
+                color: isActive != null && isActive
+                    ? isDone ? bgColor : bgColor.withOpacity(0.55)
+                    : Colors.grey[200],
                 isCircle: true,
-                child: getImage(levelImage),
+                child: getImage(levelImage, isDone),
                 isDisabled: isActive != null ? !isActive : true,
               ),
             ),
@@ -159,9 +203,9 @@ class LevelWidget extends StatelessWidget {
         return CustomButton(
           height: size - 2 * _padding, // 2 * padding
           width: size - 2 * _padding, // 2 * padding
-          color: Colors.grey[200],
+          color: Colors.grey[300],
           isCircle: true,
-          child: getImage(levelImage),
+          child: getImage(levelImage, false),
           isDisabled: true,
         );
       },

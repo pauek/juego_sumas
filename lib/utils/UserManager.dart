@@ -19,6 +19,6 @@ class UserManager {
         await prefs.setString("kidId", kidId);
       }
     }
-    print("Kid Id = $kidId");
+    print("Kid Id = $kidId" );
   }
 }
