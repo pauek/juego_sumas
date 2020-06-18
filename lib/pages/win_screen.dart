@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:juego_sumas/pages/main/main_page.dart';
-import 'package:fluttie/fluttie.dart';
 import 'package:juego_sumas/utils/style.dart';
+import 'package:lottie/lottie.dart';
 
 class WinScreen extends StatefulWidget {
   static const routeName = './winScreen';
@@ -15,59 +14,29 @@ class WinScreen extends StatefulWidget {
   _WinScreenState createState() => _WinScreenState();
 }
 
-class _WinScreenState extends State<WinScreen> {
-  FluttieAnimationController winAnimation;
-  var instance = Fluttie();
+class _WinScreenState extends State<WinScreen> with TickerProviderStateMixin {
+  AnimationController _controller;
 
-  bool ready = false;
-  String rewardText = ''; 
+  String rewardText = '';
 
-  prepareAnimations() async {
-    bool canBeUsed = await Fluttie.isAvailable();
-    String text; 
-    if (!canBeUsed) {
-      print("Animations are not supported on this platform");
-      return;
-    }
-    var animation;
-    if (widget.didWin) {
-      animation = await instance
-          .loadAnimationFromAsset("assets/animations/win_animation1.json");
-          text = "¡Bien hecho! Has superado el nivel"; 
-    } else {
-      animation  = await instance
-        .loadAnimationFromAsset("assets/animations/lose_animation1.json");
-        text = "No has superado el nivel, intantalo de nuevo"; 
-    }
-
-    winAnimation = await instance.prepareAnimation(
-      animation,
-      duration: const Duration(seconds: 3),
-      // repeatCount: const RepeatCount.infinite(),
-      repeatMode: RepeatMode.START_OVER,
-    );
-
-    if (mounted) {
-      setState(() {
-        rewardText = text;
-        ready = true;
-        winAnimation.start();
-      });
-    }
-  }
+  // if (widget.didWin) {
+  //   text = "¡Bien hecho! Has superado el nivel";
+  // } else {
+  //   text = "No has superado el nivel, intantalo de nuevo";
+  // }
 
   @override
   void initState() {
+    super.initState();
     Timer(Duration(seconds: 3),
         () => Navigator.of(context).popUntil((r) => r.isFirst));
-    super.initState();
-    prepareAnimations();
+    _controller = AnimationController(vsync: this);
   }
 
   @override
-  dispose() {
+  void dispose() {
+    _controller.dispose();
     super.dispose();
-    winAnimation?.dispose();
   }
 
   @override
@@ -81,8 +50,25 @@ class _WinScreenState extends State<WinScreen> {
                 child: Container(
                     height: 450,
                     width: 600,
-                    child: FluttieAnimation(winAnimation))),
-            Style.body(rewardText, fontSize: 22),
+                    child: Lottie.asset(
+                      widget.didWin
+                          ? "assets/animations/win_animation1.json"
+                          : "assets/animations/lose_animation1.json",
+                          repeat: false,
+                      // controller: _controller,
+                      // onLoaded: (composition) {
+                      //   _controller.duration = composition.duration;
+                      //   _controller.stop();
+                      // },
+                    ))),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              child: Style.body(
+                  widget.didWin
+                      ? '¡Bien hecho! Has superado el nivel'
+                      : 'No has superado el nivel, intantalo de nuevo',
+                  fontSize: 22),
+            ),
           ]),
     );
   }

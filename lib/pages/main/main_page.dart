@@ -173,7 +173,7 @@ class LevelWidget extends StatelessWidget {
           }
 
           //TODO: Delete this!
-          // isActive = true;
+          isActive = true;
 
           return Padding(
             padding: const EdgeInsets.all(_padding),
