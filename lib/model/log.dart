@@ -9,6 +9,7 @@ class Log {
   String nextGroup;
   bool didWin;
   int mistakes;
+  //TODO: save color
 
   Log({
     this.levelIndex,
