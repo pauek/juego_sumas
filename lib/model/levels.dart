@@ -215,7 +215,8 @@ class Stage {
   double height; // Aquesta alçada és un multiplicador de l'alçada d'un botó
   List<Level> levels;
   Color color;
-  Stage(this.height, this.levels, this.color);
+  String colorString;
+  Stage(this.height, this.levels, this.color, this.colorString);
 
   int get numLevels => levels.length;
   Level getLevel(int index) => levels[index];
@@ -229,7 +230,8 @@ class LevelService {
             [
               Level(1, 1, "_", [0], 0, Pos2D(0, 0), 'group1'),
             ],
-            Colors.amber[200]),
+            Colors.amber[200],
+            'amber'),
         Stage(
             2,
             [
@@ -240,7 +242,8 @@ class LevelService {
               Level(2, 3, "___", [2, 3, 4], 4, Pos2D(0, 1), 'group3'),
               Level(3, 2, "___", [2, 3, 4], 5, Pos2D(1, 1), 'group3')
             ],
-            Colors.lightGreen[200]),
+            Colors.lightGreen[200],
+            'green'),
         //Bloque 3: 1 suma, 1 acarreo (Level 7 - 9)
         Stage(
             1,
@@ -249,7 +252,8 @@ class LevelService {
               Level(2, 1, "c_", [2, 3, 7], 7, Pos2D(0, 0), 'group4'),
               Level(1, 2, "c_", [2, 3, 7], 8, Pos2D(1, 0), 'group4'),
             ],
-            Colors.lightGreen[200]),
+            Colors.lightGreen[200],
+            'green'),
         //Bloque 4: 2 sumas, 1 acarreo (Level 10 - 17)
         Stage(
             5,
@@ -267,7 +271,8 @@ class LevelService {
               Level(4, 2, "_c__", [14, 15], 15, Pos2D(-.5, 1), 'group9'),
               Level(2, 4, "_c__", [14, 15], 16, Pos2D(.5, 1), 'group9')
             ],
-            Colors.teal[200]),
+            Colors.teal[200],
+            'teal'),
         //Bloque 5: 3 sumas, sin acarreo (Level 18 - 20)
         Stage(
             1,
@@ -276,7 +281,8 @@ class LevelService {
               Level(4, 3, "____", [4, 5, 6], 18, Pos2D(0, 0), 'group10'),
               Level(3, 4, "____", [4, 5, 6], 19, Pos2D(1, 0), 'group10')
             ],
-            Colors.teal[200]),
+            Colors.teal[200],
+            'teal'),
         //Bloque 6: 3 sumas, 1 acarreo (Level 21 - 29)
         Stage(
             6,
@@ -296,7 +302,8 @@ class LevelService {
               Level(4, 3, "__c_", [25, 26], 27, Pos2D(-.5, 1), 'group16'),
               Level(3, 4, "__c_", [25, 26], 28, Pos2D(.5, 1), 'group16')
             ],
-            Colors.lightBlue[200]),
+            Colors.lightBlue[200],
+            'blue'),
         //Bloque 7: 3 sumas, 2 acarreos (Level 30 - 41)
         Stage(
             7,
@@ -324,7 +331,8 @@ class LevelService {
               Level(4, 4, "c_c_", [31, 32], 39, Pos2D(0, 1), 'group23'),
               Level(4, 4, "_cc_", [31, 32], 40, Pos2D(0, 1), 'group23')
             ],
-            Colors.indigo[200]),
+            Colors.indigo[200],
+            'indigo'),
         //Bloque 8: 3 sumas, 2 acarreos (Level 42 - 47)
         Stage(
             2,
@@ -335,14 +343,16 @@ class LevelService {
               Level(4, 4, "_ccc", [42], 44, Pos2D(-.5, 1), 'group25'),
               Level(4, 4, "c_cc", [39, 40, 41, 45], 45, Pos2D(.5, 1), 'group25')
             ],
-            Colors.purple[200]),
+            Colors.purple[200],
+            'purple'),
         //carry del primer dígito al último
         Stage(
             1,
             [
               Level(4, 4, "cc_c", [39, 40, 41, 45], 46, Pos2D(0, 0), 'group26')
             ],
-            Colors.purple[200]),
+            Colors.purple[200],
+            'purple'),
       ];
 
   getColor(int stageIndex) {
@@ -394,10 +404,14 @@ class LevelService {
       {int count = 5}) {
     String group;
     stage == 8 ? group = null : group = getNextGroup(stage, level);
+    String color = allStages[stage].colorString;
+    Level currentLevel = getLevel(stage, level);
 
     ExerciseSequence sequence = ExerciseSequence();
+    sequence.addLog(level, stage, color, group, currentLevel.sizeTop,
+        currentLevel.sizeBottom);
     for (int i = 0; i < count; i++) {
-      sequence.addSequence(generateExercise(stage, level), level, stage, group);
+      sequence.addSequence(generateExercise(stage, level));
     }
     return sequence;
   }

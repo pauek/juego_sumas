@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:juego_sumas/database/database.dart';
 import 'package:juego_sumas/model/exercise.dart';
+import 'package:juego_sumas/model/levels.dart';
 import 'package:juego_sumas/utils/UserManager.dart';
+import 'package:juego_sumas/utils/style.dart';
 
 import 'log.dart';
 
@@ -52,14 +54,20 @@ class ExerciseSequence with ChangeNotifier {
     notifyListeners();
   }
 
-  addSequence(Exercise e, int level, int stage, String group) {
-    exercises.add(e);
+  addLog(int level, int stage, color, group, topNumbers, bottomNumbers) {
     exerciseLog = new Log(
       startTime: DateTime.now(),
       levelIndex: level,
       stageIndex: stage,
       nextGroup: group,
+      color: color,
+      topNumbers: topNumbers,
+      bottomNumbers: bottomNumbers,
     );
+  }
+
+  addSequence(Exercise e) {
+    exercises.add(e);
   }
 
   Exercise get current =>
@@ -105,7 +113,7 @@ class ExerciseSequence with ChangeNotifier {
 
   void submitData() {
     exerciseLog.endTime = DateTime.now();
-    exerciseLog.didWin = errors < 3;
+    exerciseLog.didWin = errors <= 3;
     exerciseLog.mistakes = errors;
     DataBase.sendLog(UserManager.kidId, exerciseLog);
   }

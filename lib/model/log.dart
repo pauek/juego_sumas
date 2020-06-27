@@ -9,17 +9,21 @@ class Log {
   String nextGroup;
   bool didWin;
   int mistakes;
-  //TODO: save color
+  int topNumbers;
+  int bottomNumbers;
+  String color;
 
-  Log({
-    this.levelIndex,
-    this.stageIndex,
-    this.startTime,
-    this.endTime,
-    this.nextGroup,
-    this.didWin,
-    this.mistakes,
-  });
+  Log(
+      {this.levelIndex,
+      this.stageIndex,
+      this.startTime,
+      this.endTime,
+      this.nextGroup,
+      this.didWin,
+      this.mistakes,
+      this.topNumbers,
+      this.bottomNumbers,
+      this.color});
 
   Log.fromFirestore(DocumentSnapshot doc)
       : startTime = (doc.data['startTime'] as Timestamp).toDate(),
@@ -28,7 +32,10 @@ class Log {
         stageIndex = doc.data['stageIndex'],
         nextGroup = doc.data['nextGroup'],
         didWin = doc.data['didWin'],
-        mistakes = doc.data['mistakes'];
+        mistakes = doc.data['mistakes'],
+        topNumbers = doc.data['topNumbers'],
+        bottomNumbers = doc.data['bottomNumbers'],
+        color = doc.data['color'];
 
   Map<String, dynamic> toFirestore() => {
         'levelIndex': levelIndex,
@@ -38,10 +45,9 @@ class Log {
         'nextGroup': nextGroup,
         'didWin': didWin,
         'mistakes': mistakes,
+        'topNumbers': topNumbers,
+        'bottomNumbers': bottomNumbers,
+        'color': color,
       };
 }
 
-List<Log> kidtoJason(QuerySnapshot query) {
-  List<DocumentSnapshot> docs = query.documents;
-  return docs.map((doc) => Log.fromFirestore(doc)).toList();
-}

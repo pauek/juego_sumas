@@ -88,7 +88,16 @@ class _RootPageState extends State<RootPage> {
                 }
                 switch (snapshot.connectionState) {
                   case ConnectionState.active:
-                    final bool hasParent = snapshot.data.data['parent'] != null &&  snapshot.data.data['parent'] != '';
+                    if (!snapshot.hasData) {
+                      return Container(
+                        child: Center(
+                          child: Text('Error'),
+                        ),
+                      );
+                    }
+                    final bool hasParent =
+                        snapshot.data.data['parent'] != null &&
+                            snapshot.data.data['parent'] != '';
                     if (!hasParent) {
                       return CodeScreen();
                     }
@@ -98,6 +107,7 @@ class _RootPageState extends State<RootPage> {
                     // goToMainPage();
                     // break;
                     return MainPage();
+                    // return CodeScreen();
 
                   case ConnectionState.done:
                     return Placeholder();

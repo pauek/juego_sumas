@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Style {
+
   //Texts
   static Widget title(
     text, {

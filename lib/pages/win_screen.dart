@@ -67,7 +67,7 @@ class _WinScreenState extends State<WinScreen> with TickerProviderStateMixin {
                   widget.didWin
                       ? '¡Bien hecho! Has superado el nivel'
                       : 'No has superado el nivel, intantalo de nuevo',
-                  fontSize: 22),
+                  fontSize: 22, textAlign: TextAlign.center),
             ),
           ]),
     );
